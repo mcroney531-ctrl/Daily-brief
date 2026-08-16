@@ -14,6 +14,7 @@ export interface ProjdashItem {
   hub?: string | null;
   url?: string;
   updated_at?: string;
+  parent_item_id?: string | null;
   [key: string]: unknown;
 }
 
@@ -44,6 +45,22 @@ async function getItems(args: GetItemsArgs): Promise<ProjdashItem[]> {
   return Array.isArray(parsed) ? parsed : parsed.items;
 }
 
+// Only top-level items carry a category in ProjDash; nested items always
+// show category: null regardless of whether they've been triaged, so hub
+// names have to be resolved separately via parent_item_id.
+async function getHubTitleById(): Promise<Map<string, string>> {
+  const hubs = await getItems({ type: "hub" });
+  return new Map(hubs.map((hub) => [hub.id, hub.title]));
+}
+
+function attachHubTitles(items: ProjdashItem[], hubTitleById: Map<string, string>): ProjdashItem[] {
+  return items.map((item) =>
+    item.parent_item_id && hubTitleById.has(item.parent_item_id)
+      ? { ...item, hub: hubTitleById.get(item.parent_item_id) }
+      : item
+  );
+}
+
 function isHighPriority(item: ProjdashItem): boolean {
   return (item.priority ?? "").toLowerCase() === "high";
 }
@@ -65,26 +82,33 @@ export interface ProjdashSlice {
 // Three generic, category-agnostic buckets. Items already shown in an
 // earlier bucket are excluded from later ones so the same item doesn't
 // appear twice in a short, scannable email.
+//
+// The unassigned/triage bucket is additionally scoped to top-level items
+// (nested items structurally always have category: null, so they're not
+// really "uncategorized") and to status "open" (old done/tabled items with
+// no category are stale residue, not something that needs triaging today —
+// showing them forever would turn this into the backlog-guilt machine the
+// spec explicitly rules out).
 export async function getProjdashSlice(maxPerSection: number): Promise<ProjdashSlice> {
-  const [inProgressRaw, openRaw, unassignedRaw] = await Promise.all([
+  const [inProgressRaw, openRaw, unassignedRaw, hubTitleById] = await Promise.all([
     getItems({ status: "in progress", type: "item" }),
     getItems({ status: "open", type: "item" }),
-    getItems({ unassigned_only: true, type: "item" }),
+    getItems({ unassigned_only: true, type: "item", top_level_only: true, status: "open" }),
+    getHubTitleById(),
   ]);
 
   const shown = new Set<string>();
 
-  const inProgress = inProgressRaw.slice(0, maxPerSection);
+  const inProgress = attachHubTitles(inProgressRaw.slice(0, maxPerSection), hubTitleById);
   inProgress.forEach((item) => shown.add(item.id));
 
-  const openHighPriority = openRaw
-    .filter((item) => isHighPriority(item) && !shown.has(item.id))
-    .slice(0, maxPerSection);
+  const openHighPriority = attachHubTitles(
+    openRaw.filter((item) => isHighPriority(item) && !shown.has(item.id)).slice(0, maxPerSection),
+    hubTitleById
+  );
   openHighPriority.forEach((item) => shown.add(item.id));
 
-  const unassigned = unassignedRaw
-    .filter((item) => !shown.has(item.id))
-    .slice(0, maxPerSection);
+  const unassigned = unassignedRaw.filter((item) => !shown.has(item.id)).slice(0, maxPerSection);
 
   return { inProgress, openHighPriority, unassigned };
 }

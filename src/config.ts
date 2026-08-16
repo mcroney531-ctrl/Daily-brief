@@ -45,7 +45,7 @@ export const config = {
   },
   email: {
     from: env("EMAIL_FROM", "Daily Briefing <daily-briefing@localhost>"),
-    to: env("EMAIL_TO", "tnewsome829@gmail.com"),
+    to: env("EMAIL_TO", "mcroney531@gmail.com"),
     subjectPrefix: optionalEnv("EMAIL_SUBJECT_PREFIX") ?? "Daily Briefing",
   },
 };
