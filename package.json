@@ -1,0 +1,23 @@
+{
+  "name": "daily-brief",
+  "version": "1.0.0",
+  "description": "Daily consolidation email: chore nudge + ProjDash slice + QuickSum picks.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "preview": "tsx scripts/preview.ts",
+    "send": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "dotenv": "^16.4.5",
+    "nodemailer": "^9.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "@types/nodemailer": "^6.4.15",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }
+}
