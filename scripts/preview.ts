@@ -39,6 +39,15 @@ const mockData: BriefData = {
       hook: "Small, consistent changes compound into identity-level transformation over time.",
     },
   ],
+  pool: {
+    active: [{ id: "p1", url: "https://gsap.com/resources/get-started/", title: "GSAP Training Path" }],
+    pick: {
+      id: "p2",
+      url: "https://example.com/figma-plugins",
+      title: "That Figma plugin roundup you bookmarked",
+      description: "A handful of plugins for auto-layout cleanup and quick prototyping.",
+    },
+  },
 };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

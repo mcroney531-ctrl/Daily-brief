@@ -32,6 +32,15 @@ export const config = {
     command: optionalEnv("QUICKSUM_MCP_COMMAND"),
     url: optionalEnv("QUICKSUM_MCP_URL"),
   },
+  linkhoard: {
+    // LinkHoard's REST API (the same one its PWA talks to), not MCP — the
+    // active/random-pick selection logic lives here either way, so there's
+    // no MCP tool to gain by going through its SSE endpoint instead.
+    // Left unset until wired up: the "From the Pool" section is skipped
+    // entirely rather than failing the whole send.
+    apiUrl: optionalEnv("LINKHOARD_API_URL"),
+    apiToken: optionalEnv("LINKHOARD_API_TOKEN"),
+  },
   content: {
     maxItemsPerSection: envInt("DAILY_BRIEF_MAX_ITEMS_PER_SECTION", 5),
     quicksumPickCount: envInt("DAILY_BRIEF_QUICKSUM_PICKS", 2),

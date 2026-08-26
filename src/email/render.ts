@@ -1,11 +1,13 @@
 import type { ProjdashItem, ProjdashSlice } from "../mcp/projdash.js";
 import type { QuicksumPick } from "../mcp/quicksum.js";
+import type { LinkhoardLink, PoolSlice } from "../linkhoard.js";
 import { getTodaysZone, getChoreNudgeText } from "../chores.js";
 
 export interface BriefData {
   date: Date;
   projdash: ProjdashSlice;
   quicksumPicks: QuicksumPick[];
+  pool: PoolSlice;
 }
 
 function escapeHtml(input: string): string {
@@ -64,6 +66,49 @@ function quicksumCard(pick: QuicksumPick): string {
     </table>`;
 }
 
+function poolLinkTitle(link: LinkhoardLink): string {
+  return link.title || link.url;
+}
+
+// Active pool items get the same visual weight/voice as the chore nudge —
+// a commitment, not content to browse. One line per item in a single box.
+function poolActiveCallout(active: LinkhoardLink[]): string {
+  if (active.length === 0) return "";
+  const lines = active
+    .map(
+      (link) =>
+        `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#1d4a30; line-height:1.6;">Don't forget to check out <strong>${escapeHtml(poolLinkTitle(link))}</strong>.</div>`
+    )
+    .join("");
+  return `
+          <tr>
+            <td style="background:#ffffff; padding:12px 22px 0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+                <tr>
+                  <td style="background:#eef4f0; border-radius:12px; padding:14px 16px;">
+                    ${lines}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>`;
+}
+
+// The one random pick gets the softer, browsier QuickSum-card treatment —
+// discovery, not obligation.
+function poolPickCard(pick: LinkhoardLink): string {
+  return `
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f5f8f6; border-radius:12px;">
+      <tr>
+        <td style="padding:16px 18px;">
+          <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; text-transform:uppercase; color:#9aa79f; margin-bottom:4px;">You might be interested in</div>
+          <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1d1d1d; line-height:1.35;"><a href="${escapeHtml(pick.url)}" style="color:#1d1d1d; text-decoration:none;">${escapeHtml(poolLinkTitle(pick))}</a></div>
+          ${pick.description ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#3c463f; line-height:1.5; margin-top:8px;">${escapeHtml(pick.description)}</div>` : ""}
+        </td>
+      </tr>
+    </table>`;
+}
+
 function sectionCard(eyebrow: string, innerHtml: string): string {
   return `
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; margin-top:16px;">
@@ -92,6 +137,9 @@ export function renderBriefHtml(data: BriefData): string {
   const quicksumBody = data.quicksumPicks.length
     ? data.quicksumPicks.map(quicksumCard).join("")
     : `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#7c8a80;">Reading queue is empty — add something to QuickSum.</div>`;
+
+  const poolActiveHtml = poolActiveCallout(data.pool.active);
+  const poolPickHtml = data.pool.pick ? sectionCard("From the Pool", poolPickCard(data.pool.pick)) : "";
 
   return `<!doctype html>
 <html lang="en">
@@ -126,10 +174,12 @@ export function renderBriefHtml(data: BriefData): string {
               </table>
             </td>
           </tr>
+          ${poolActiveHtml}
 
           <tr>
             <td style="background:#f2f4f2; padding:0 22px 22px;">
               ${sectionCard("ProjDash", projdashBody)}
+              ${poolPickHtml}
               ${sectionCard("QuickSum Picks", quicksumBody)}
 
               <div style="text-align:center; font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; color:#9aa79f; margin-top:20px;">
@@ -151,6 +201,9 @@ export function renderBriefText(data: BriefData): string {
   lines.push(`Daily Briefing — ${formatDate(data.date)}`);
   lines.push("");
   lines.push(getChoreNudgeText(data.date));
+  for (const link of data.pool.active) {
+    lines.push(`Don't forget to check out ${poolLinkTitle(link)}.`);
+  }
   lines.push("");
 
   lines.push("ProjDash");
@@ -170,6 +223,13 @@ export function renderBriefText(data: BriefData): string {
     }
   }
   lines.push("");
+
+  if (data.pool.pick) {
+    lines.push("From the Pool");
+    lines.push(`  You might be interested in: ${poolLinkTitle(data.pool.pick)}`);
+    if (data.pool.pick.description) lines.push(`    ${data.pool.pick.description}`);
+    lines.push("");
+  }
 
   lines.push("QuickSum Picks");
   if (data.quicksumPicks.length === 0) {
