@@ -2,8 +2,11 @@ name: Send Daily Briefing
 
 on:
   schedule:
-    # 11:30 UTC ≈ 6:30am US Eastern (7:30am EST in winter) — a placeholder.
-    # Adjust to your actual timezone/offset before relying on this.
+    # 11:30 UTC = 6:30am EST. GitHub Actions cron is fixed UTC — no DST
+    # awareness — so during Eastern Daylight Time (roughly mid-March to
+    # early November) this lands at 7:30am local instead of 6:30. Bump to
+    # "30 10 * * *" for those months if the hour drift bugs you, or leave
+    # it — flagging it here so it's a known tradeoff, not a surprise.
     - cron: "30 11 * * *"
   workflow_dispatch: {} # lets you trigger a real send manually from the Actions tab, for testing
 
