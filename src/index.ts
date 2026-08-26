@@ -1,15 +1,17 @@
 import { config } from "./config.js";
 import { getProjdashSlice, closeProjdashClient } from "./mcp/projdash.js";
 import { getRandomQuicksumPicks, closeQuicksumClient } from "./mcp/quicksum.js";
+import { getPoolSlice } from "./linkhoard.js";
 import { renderBriefHtml, renderBriefText, type BriefData } from "./email/render.js";
 import { sendBriefEmail } from "./email/send.js";
 
 async function buildBrief(date: Date): Promise<BriefData> {
-  const [projdash, quicksumPicks] = await Promise.all([
+  const [projdash, quicksumPicks, pool] = await Promise.all([
     getProjdashSlice(config.content.maxItemsPerSection),
     getRandomQuicksumPicks(config.content.quicksumPickCount),
+    getPoolSlice(),
   ]);
-  return { date, projdash, quicksumPicks };
+  return { date, projdash, quicksumPicks, pool };
 }
 
 async function main() {

@@ -58,14 +58,26 @@ async function getSummaryById(id: string): Promise<QuicksumSummaryFull> {
   );
 }
 
+// Strip a leading "**Label:**"-style markdown header (real content bodies
+// consistently open with one, e.g. "**The thesis:** ...") plus any
+// remaining bold/italic markers, so raw asterisks don't leak into the
+// rendered HTML email.
+function stripMarkdown(input: string): string {
+  return input
+    .replace(/^\s*\*\*[^*]+\*\*:?\s*/, "")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .trim();
+}
+
 // One-sentence hook, not a full summary excerpt. The tool's response shape
 // for "hook"-style copy isn't guaranteed, so prefer an explicit hook/
 // description field and fall back to the first sentence of the content.
 function extractHook(full: QuicksumSummaryFull): string {
   const explicit = full.hook ?? full.description;
-  if (explicit) return explicit;
+  if (explicit) return stripMarkdown(explicit);
 
-  const body = full.summary ?? full.content ?? "";
+  const body = stripMarkdown(full.summary ?? full.content ?? "");
   const firstSentence = body.split(/(?<=[.!?])\s/)[0]?.trim();
   if (!firstSentence) return "";
   return firstSentence.length > 200 ? `${firstSentence.slice(0, 197)}...` : firstSentence;

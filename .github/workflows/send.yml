@@ -1,0 +1,47 @@
+name: Send Daily Briefing
+
+on:
+  schedule:
+    # 11:30 UTC ≈ 6:30am US Eastern (7:30am EST in winter) — a placeholder.
+    # Adjust to your actual timezone/offset before relying on this.
+    - cron: "30 11 * * *"
+  workflow_dispatch: {} # lets you trigger a real send manually from the Actions tab, for testing
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx tsx src/index.ts
+        env:
+          # ProjDash and quicksum-remote are open, unauthenticated MCP
+          # endpoints (verified directly against their source, both the
+          # Netlify and Railway deployments) — no token needed, safe to
+          # keep as plain values here rather than repo secrets.
+          PROJDASH_MCP_URL: https://project-tracker-mcp-production.up.railway.app/mcp
+          QUICKSUM_MCP_URL: https://quicksum-mcp-production.up.railway.app/mcp
+
+          # LinkHoard's auth status wasn't confirmed the same way (couldn't
+          # verify API_TOKEN is set on Railway) — URL kept plain since a URL
+          # alone isn't sensitive, but the token stays a secret in case one's
+          # configured. Leave LINKHOARD_API_TOKEN unset in repo secrets if
+          # there isn't one.
+          LINKHOARD_API_URL: https://web-production-1b9bf.up.railway.app
+          LINKHOARD_API_TOKEN: ${{ secrets.LINKHOARD_API_TOKEN }}
+
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: mcroney531@gmail.com
