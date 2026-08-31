@@ -2,11 +2,11 @@ name: Send Daily Briefing
 
 on:
   schedule:
-    # 11:30 UTC = 6:30am EST. GitHub Actions cron is fixed UTC — no DST
-    # awareness — so during Eastern Daylight Time (roughly mid-March to
-    # early November) this lands at 7:30am local instead of 6:30. Bump to
-    # "30 10 * * *" for those months if the hour drift bugs you, or leave
-    # it — flagging it here so it's a known tradeoff, not a surprise.
+    # Target is 6:30 a.m. Eastern year-round, but cron here is fixed UTC with
+    # no DST awareness. So fire at both candidates — 10:30 UTC is 6:30 EDT,
+    # 11:30 UTC is 6:30 EST — and let the gate step below drop whichever one
+    # isn't 6 a.m. Eastern today. Exactly one matches in either DST regime.
+    - cron: "30 10 * * *"
     - cron: "30 11 * * *"
   workflow_dispatch: {} # lets you trigger a real send manually from the Actions tab, for testing
 
@@ -14,16 +14,28 @@ jobs:
   send:
     runs-on: ubuntu-latest
     steps:
+      # First, so the wrong-half-of-the-year run costs nothing. Manual
+      # dispatches skip the gate entirely so test sends always go through.
+      - id: gate
+        run: |
+          hour=$(TZ=America/New_York date +%H)
+          echo "Eastern hour is $hour"
+          [ "$hour" = "06" ] && echo "send=true" >> "$GITHUB_OUTPUT" || echo "send=false" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v4
+        if: github.event_name != 'schedule' || steps.gate.outputs.send == 'true'
 
       - uses: actions/setup-node@v4
+        if: github.event_name != 'schedule' || steps.gate.outputs.send == 'true'
         with:
           node-version: 20
           cache: npm
 
       - run: npm ci
+        if: github.event_name != 'schedule' || steps.gate.outputs.send == 'true'
 
       - run: npx tsx src/index.ts
+        if: github.event_name != 'schedule' || steps.gate.outputs.send == 'true'
         env:
           # ProjDash and quicksum-remote are open, unauthenticated MCP
           # endpoints (verified directly against their source, both the
