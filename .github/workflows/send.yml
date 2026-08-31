@@ -23,26 +23,6 @@ jobs:
 
       - run: npm ci
 
-      # Temporary — diagnosing a persistent Gmail 535 BadCredentials failure.
-      # Prints only derived facts (lengths, yes/no checks), never the values
-      # themselves, so nothing sensitive lands in the logs. Remove once the
-      # send works.
-      - name: Check SMTP secret shape
-        env:
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-        run: |
-          echo "SMTP_USER  set: $([ -n "$SMTP_USER" ] && echo yes || echo no), length: ${#SMTP_USER}, domain: ${SMTP_USER##*@}"
-          echo "SMTP_PASS  set: $([ -n "$SMTP_PASS" ] && echo yes || echo no), length: ${#SMTP_PASS} (a Google app password is 16)"
-          case "$SMTP_PASS" in *" "*) echo "SMTP_PASS  contains spaces: yes";; *) echo "SMTP_PASS  contains spaces: no";; esac
-          case "$SMTP_PASS" in *[!a-zA-Z0-9\ ]*) echo "SMTP_PASS  has non-alphanumeric chars: yes (unexpected)";; *) echo "SMTP_PASS  has non-alphanumeric chars: no";; esac
-          echo "SMTP_HOST  length: ${#SMTP_HOST} (smtp.gmail.com is 14)"
-          echo "SMTP_PORT  length: ${#SMTP_PORT} (587 is 3), is 587: $([ "$SMTP_PORT" = "587" ] && echo yes || echo no)"
-          echo "SMTP_SECURE is exactly 'false': $([ "$SMTP_SECURE" = "false" ] && echo yes || echo no)"
-
       - run: npx tsx src/index.ts
         env:
           # ProjDash and quicksum-remote are open, unauthenticated MCP
