@@ -2,16 +2,18 @@ import { config } from "./config.js";
 import { getProjdashSlice, closeProjdashClient } from "./mcp/projdash.js";
 import { getRandomQuicksumPicks, closeQuicksumClient } from "./mcp/quicksum.js";
 import { getPoolSlice } from "./linkhoard.js";
+import { getMenuSlice } from "./food.js";
 import { renderBriefHtml, renderBriefText, type BriefData } from "./email/render.js";
 import { sendBriefEmail } from "./email/send.js";
 
 async function buildBrief(date: Date): Promise<BriefData> {
-  const [projdash, quicksumPicks, pool] = await Promise.all([
+  const [projdash, quicksumPicks, pool, menu] = await Promise.all([
     getProjdashSlice(config.content.maxItemsPerSection),
     getRandomQuicksumPicks(config.content.quicksumPickCount),
     getPoolSlice(),
+    getMenuSlice(date),
   ]);
-  return { date, projdash, quicksumPicks, pool };
+  return { date, projdash, quicksumPicks, pool, menu };
 }
 
 async function main() {

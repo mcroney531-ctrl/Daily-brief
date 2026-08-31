@@ -39,6 +39,14 @@ const mockData: BriefData = {
       hook: "Small, consistent changes compound into identity-level transformation over time.",
     },
   ],
+  menu: {
+    categories: [
+      { category: "Dinners", items: ["Cajun shrimp pasta", "Sheet-pan chicken thighs + broccoli", "Beef and broccoli stir fry"] },
+      { category: "Pre-Workout Meal", items: ["Overnight oats with peanut butter"] },
+      { category: "Lunches", items: ["Leftover rotation", "Turkey wraps"] },
+    ],
+    coveredCount: 3,
+  },
   pool: {
     active: [{ id: "p1", url: "https://gsap.com/resources/get-started/", title: "GSAP Training Path" }],
     pick: {

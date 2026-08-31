@@ -41,6 +41,13 @@ export const config = {
     apiUrl: optionalEnv("LINKHOARD_API_URL"),
     apiToken: optionalEnv("LINKHOARD_API_TOKEN"),
   },
+  food: {
+    // Sunday Setup's Supabase project, read directly — food_week_plans has
+    // open anon select and this is the publishable (RLS-scoped) key, so
+    // neither value is a secret.
+    supabaseUrl: optionalEnv("FOOD_SUPABASE_URL"),
+    supabaseKey: optionalEnv("FOOD_SUPABASE_KEY"),
+  },
   content: {
     maxItemsPerSection: envInt("DAILY_BRIEF_MAX_ITEMS_PER_SECTION", 5),
     quicksumPickCount: envInt("DAILY_BRIEF_QUICKSUM_PICKS", 2),

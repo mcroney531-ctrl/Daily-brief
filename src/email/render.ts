@@ -1,6 +1,7 @@
 import type { ProjdashItem, ProjdashSlice } from "../mcp/projdash.js";
 import type { QuicksumPick } from "../mcp/quicksum.js";
 import type { LinkhoardLink, PoolSlice } from "../linkhoard.js";
+import type { MenuSlice } from "../food.js";
 import { getTodaysZone, getChoreNudgeText } from "../chores.js";
 
 export interface BriefData {
@@ -8,6 +9,7 @@ export interface BriefData {
   projdash: ProjdashSlice;
   quicksumPicks: QuicksumPick[];
   pool: PoolSlice;
+  menu: MenuSlice;
 }
 
 function escapeHtml(input: string): string {
@@ -64,6 +66,37 @@ function quicksumCard(pick: QuicksumPick): string {
         </td>
       </tr>
     </table>`;
+}
+
+// The week's menu, as decided in Your Dietitian chat. Leads the brief, so it
+// gets the full-width card treatment rather than a one-line callout.
+function menuBody(menu: MenuSlice): string {
+  if (menu.categories.length === 0) {
+    return `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#7c8a80;">Nothing planned yet this week.</div>`;
+  }
+
+  const groups = menu.categories
+    .map(
+      (group) => `
+    <div style="margin-top:14px;">
+      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#1d4a30; font-weight:700; margin-bottom:6px;">${escapeHtml(group.category)}</div>
+      ${group.items
+        .map(
+          (item) =>
+            `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; color:#1d1d1d; line-height:1.45; padding:3px 0;">${escapeHtml(item)}</div>`
+        )
+        .join("")}
+    </div>`
+    )
+    .join("");
+
+  // Without this the list just quietly shrinks as the week gets handled,
+  // which reads as things going missing rather than progress.
+  const covered = menu.coveredCount
+    ? `<div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; color:#9aa79f; margin-top:16px;">${menu.coveredCount} already covered</div>`
+    : "";
+
+  return `${groups}${covered}`;
 }
 
 function poolLinkTitle(link: LinkhoardLink): string {
@@ -155,14 +188,22 @@ export function renderBriefHtml(data: BriefData): string {
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:480px; width:100%;">
 
           <tr>
-            <td style="background:#1d4a30; border-radius:16px 16px 0 0; padding:24px 22px;">
+            <td style="background:#1d4a30; border-radius:16px; padding:24px 22px;">
               <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#c9dcd0;">Daily Briefing</div>
               <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:20px; font-weight:700; color:#ffffff; margin-top:6px;">${escapeHtml(formatDate(data.date))}</div>
             </td>
           </tr>
 
           <tr>
-            <td style="background:#ffffff; padding:16px 22px 0;">
+            <td style="padding:0 22px;">
+              ${sectionCard("This Week's Menu", menuBody(data.menu))}
+            </td>
+          </tr>
+
+          <tr><td style="height:16px; line-height:16px; font-size:0;">&nbsp;</td></tr>
+
+          <tr>
+            <td style="background:#ffffff; border-radius:16px 16px 0 0; padding:16px 22px 0;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                 <tr>
                   <td style="background:#eef4f0; border-radius:12px; padding:14px 16px;">
@@ -175,6 +216,9 @@ export function renderBriefHtml(data: BriefData): string {
             </td>
           </tr>
           ${poolActiveHtml}
+          <!-- Closes the white "today" block so it ends on a rounded edge
+               rather than a hard seam against the gray below. -->
+          <tr><td style="background:#ffffff; border-radius:0 0 16px 16px; height:16px; line-height:16px; font-size:0;">&nbsp;</td></tr>
 
           <tr>
             <td style="background:#f2f4f2; padding:0 22px 22px;">
@@ -200,6 +244,19 @@ export function renderBriefText(data: BriefData): string {
   const lines: string[] = [];
   lines.push(`Daily Briefing — ${formatDate(data.date)}`);
   lines.push("");
+
+  lines.push("This Week's Menu");
+  if (data.menu.categories.length === 0) {
+    lines.push("  Nothing planned yet this week.");
+  } else {
+    for (const group of data.menu.categories) {
+      lines.push(`  ${group.category}:`);
+      for (const item of group.items) lines.push(`    - ${item}`);
+    }
+    if (data.menu.coveredCount) lines.push(`  (${data.menu.coveredCount} already covered)`);
+  }
+  lines.push("");
+
   lines.push(getChoreNudgeText(data.date));
   for (const link of data.pool.active) {
     lines.push(`Don't forget to check out ${poolLinkTitle(link)}.`);
