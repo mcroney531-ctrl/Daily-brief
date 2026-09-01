@@ -2,7 +2,7 @@ import type { ProjdashItem, ProjdashSlice } from "../mcp/projdash.js";
 import type { QuicksumPick } from "../mcp/quicksum.js";
 import type { LinkhoardLink, PoolSlice } from "../linkhoard.js";
 import type { MenuSlice } from "../food.js";
-import { getTodaysZone, getChoreNudgeText } from "../chores.js";
+import { getTodaysChores, getChoreNudgeText } from "../chores.js";
 
 export interface BriefData {
   date: Date;
@@ -154,8 +154,24 @@ function sectionCard(eyebrow: string, innerHtml: string): string {
   </table>`;
 }
 
+// The day's zone name plus its specific task list, matching the Weekly
+// Reset grid: "One zone per day, same tasks, same day, every week."
+function choreNudgeBody(zone: string, tasks: string[]): string {
+  const taskLines = tasks
+    .map(
+      (task) =>
+        `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:13px; color:#1d4a30; line-height:1.6;">– ${escapeHtml(task)}</div>`
+    )
+    .join("");
+  return `
+    <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#1d4a30; line-height:1.5;">
+      Don't forget, today you're cleaning the <strong>${escapeHtml(zone)}</strong>:
+    </div>
+    <div style="margin-top:6px;">${taskLines}</div>`;
+}
+
 export function renderBriefHtml(data: BriefData): string {
-  const zone = getTodaysZone(data.date);
+  const { zone, tasks } = getTodaysChores(data.date);
   const { inProgress, openHighPriority, unassigned } = data.projdash;
   const projdashIsQuiet = inProgress.length === 0 && openHighPriority.length === 0 && unassigned.length === 0;
 
@@ -207,9 +223,7 @@ export function renderBriefHtml(data: BriefData): string {
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                 <tr>
                   <td style="background:#eef4f0; border-radius:12px; padding:14px 16px;">
-                    <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#1d4a30; line-height:1.5;">
-                      Don't forget, today you're cleaning the <strong>${escapeHtml(zone)}</strong>.
-                    </div>
+                    ${choreNudgeBody(zone, tasks)}
                   </td>
                 </tr>
               </table>

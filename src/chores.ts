@@ -1,21 +1,59 @@
-// Day-of-week -> chore zone, mirrors the weekly rotation in the existing
-// Home Maintenance Schedule (chore-schedule.html). Pure lookup, no external call.
-const ZONE_BY_DAY: Record<number, string> = {
-  0: "Fridge + Reset", // Sunday
-  1: "Common Areas", // Monday
-  2: "Bathrooms", // Tuesday
-  3: "Kitchen", // Wednesday
-  4: "Bedrooms", // Thursday
-  5: "Floors", // Friday
-  6: "Catch-Up", // Saturday
+// Day-of-week -> chore zone + tasks, transcribed from the Weekly Reset grid
+// in the Home Maintenance Schedule graphic. Pure lookup, no external call —
+// "One zone per day, same tasks, same day, every week."
+export interface ChoreDay {
+  zone: string;
+  tasks: string[];
+}
+
+const SCHEDULE_BY_DAY: Record<number, ChoreDay> = {
+  0: {
+    // Sunday
+    zone: "Fridge + Reset",
+    tasks: ["Empty fridge", "General reset lap"],
+  },
+  1: {
+    // Monday
+    zone: "Common Areas",
+    tasks: ["Vacuum living room", "Vacuum couch", "Wipe windowsill", "Wipe coffee table", "Wipe ledge under TV"],
+  },
+  2: {
+    // Tuesday
+    zone: "Bathrooms",
+    tasks: ["Sink full scrub", "Wipe mirrors", "Final fridge check", "Wipe stainless — trash night", "Mop bathroom floors"],
+  },
+  3: {
+    // Wednesday
+    zone: "Kitchen",
+    tasks: ["Kitchen sink full scrub", "Clean microwave", "Wipe stainless fridge"],
+  },
+  4: {
+    // Thursday
+    zone: "Bedrooms",
+    tasks: ["Vacuum all bedrooms", "Wash & swap bed sheets"],
+  },
+  5: {
+    // Friday
+    zone: "Floors",
+    tasks: ["Vacuum steps", "Mop kitchen floor", "Mop foyer"],
+  },
+  6: {
+    // Saturday
+    zone: "Catch-Up",
+    tasks: ["Any missed tasks", "Toilets full scrub", "Clean shower", "Deep wipe work desk"],
+  },
 };
 
+export function getTodaysChores(date: Date = new Date()): ChoreDay {
+  return SCHEDULE_BY_DAY[date.getDay()];
+}
+
 export function getTodaysZone(date: Date = new Date()): string {
-  return ZONE_BY_DAY[date.getDay()];
+  return getTodaysChores(date).zone;
 }
 
 // Plain-text version (used in the text/plain alt part of the email).
 export function getChoreNudgeText(date: Date = new Date()): string {
-  const zone = getTodaysZone(date);
-  return `Don't forget, today you're cleaning the ${zone}.`;
+  const { zone, tasks } = getTodaysChores(date);
+  return [`Don't forget, today you're cleaning the ${zone}:`, ...tasks.map((task) => `  - ${task}`)].join("\n");
 }
