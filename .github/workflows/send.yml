@@ -2,25 +2,71 @@ name: Send Daily Briefing
 
 on:
   schedule:
-    # Target is 6:30 a.m. Eastern year-round, but cron here is fixed UTC with
-    # no DST awareness. So fire at both candidates — 10:30 UTC is 6:30 EDT,
-    # 11:30 UTC is 6:30 EST — and let the gate step below drop whichever one
-    # isn't 6 a.m. Eastern today. Exactly one matches in either DST regime.
-    - cron: "30 10 * * *"
-    - cron: "30 11 * * *"
+    # Target is 6:30 a.m. Eastern year-round. Two problems layer here:
+    #
+    # 1. Cron here is fixed UTC with no DST awareness, so two candidate
+    #    times are needed — 10:23 UTC is 6:23 EDT, 11:23 UTC is 6:23 EST.
+    # 2. GitHub's scheduler queues jobs at "popular" minutes (:00, :30) and
+    #    can delay them for hours — observed firing 4-10+ hours late on
+    #    this repo. :23 dodges the worst of that congestion (GitHub's own
+    #    guidance), and the gate below tolerates whatever's left: it
+    #    accepts any run from 6 a.m. Eastern onward that day rather than
+    #    requiring an exact-hour match, since a late send beats no send.
+    - cron: "23 10 * * *"
+    - cron: "23 11 * * *"
   workflow_dispatch: {} # lets you trigger a real send manually from the Actions tab, for testing
+
+# Both candidate times can end up delayed into the same window and firing
+# close together; run one at a time so the second sees the first's result
+# before deciding whether to send again.
+concurrency:
+  group: send-daily-briefing
 
 jobs:
   send:
     runs-on: ubuntu-latest
     steps:
-      # First, so the wrong-half-of-the-year run costs nothing. Manual
+      # First, so a run that shouldn't send costs nothing further. Manual
       # dispatches skip the gate entirely so test sends always go through.
       - id: gate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           hour=$(TZ=America/New_York date +%H)
-          echo "Eastern hour is $hour"
-          [ "$hour" = "06" ] && echo "send=true" >> "$GITHUB_OUTPUT" || echo "send=false" >> "$GITHUB_OUTPUT"
+          today_et=$(TZ=America/New_York date +%F)
+          echo "Eastern hour is $hour, Eastern date is $today_et"
+
+          sent_today=false
+          if [ "$hour" -ge 6 ]; then
+            # Widening the hour check to "6am onward" (rather than exactly
+            # 6) means the two cron slots can both land well past their
+            # target and still send — but that makes the workflow's own
+            # run history untrustworthy as a "did we already send today"
+            # signal, since a *skipped* run also reports overall conclusion
+            # "success" (nothing failed, steps just didn't run). So check
+            # whether the send step itself actually executed on a run from
+            # today (ET), not just whether some run completed OK.
+            resp=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/workflows/send.yml/runs?per_page=10")
+            for id in $(echo "$resp" | jq -r '.workflow_runs[].id'); do
+              created=$(echo "$resp" | jq -r --arg id "$id" '.workflow_runs[] | select(.id == ($id|tonumber)) | .created_at')
+              run_et_date=$(TZ=America/New_York date -d "$created" +%F)
+              [ "$run_et_date" != "$today_et" ] && continue
+              step=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+                "https://api.github.com/repos/${{ github.repository }}/actions/runs/$id/jobs" \
+                | jq -r '.jobs[0].steps[]? | select(.name | test("index.ts")) | .conclusion')
+              if [ "$step" = "success" ]; then
+                sent_today=true
+                break
+              fi
+            done
+          fi
+
+          if [ "$hour" -ge 6 ] && [ "$sent_today" = false ]; then
+            echo "send=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "send=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - uses: actions/checkout@v4
         if: github.event_name != 'schedule' || steps.gate.outputs.send == 'true'
