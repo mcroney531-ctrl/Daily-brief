@@ -2,18 +2,18 @@ name: Send Daily Briefing
 
 on:
   schedule:
-    # Target is 6:30 a.m. Eastern year-round. Two problems layer here:
+    # Target is 6:08 a.m. Eastern year-round. Two problems layer here:
     #
     # 1. Cron here is fixed UTC with no DST awareness, so two candidate
-    #    times are needed — 10:23 UTC is 6:23 EDT, 11:23 UTC is 6:23 EST.
+    #    times are needed — 10:08 UTC is 6:08 EDT, 11:08 UTC is 6:08 EST.
     # 2. GitHub's scheduler queues jobs at "popular" minutes (:00, :30) and
     #    can delay them for hours — observed firing 4-10+ hours late on
-    #    this repo. :23 dodges the worst of that congestion (GitHub's own
+    #    this repo. :08 dodges the worst of that congestion (GitHub's own
     #    guidance), and the gate below tolerates whatever's left: it
     #    accepts any run from 6 a.m. Eastern onward that day rather than
     #    requiring an exact-hour match, since a late send beats no send.
-    - cron: "23 10 * * *"
-    - cron: "23 11 * * *"
+    - cron: "8 10 * * *"
+    - cron: "8 11 * * *"
   workflow_dispatch: {} # lets you trigger a real send manually from the Actions tab, for testing
 
 # Both candidate times can end up delayed into the same window and firing
