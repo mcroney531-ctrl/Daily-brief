@@ -2,23 +2,26 @@ name: Send Daily Briefing
 
 on:
   schedule:
-    # Target is 6:08 a.m. Eastern year-round. Two problems layer here:
-    #
-    # 1. Cron here is fixed UTC with no DST awareness, so two candidate
-    #    times are needed — 10:08 UTC is 6:08 EDT, 11:08 UTC is 6:08 EST.
-    # 2. GitHub's scheduler queues jobs at "popular" minutes (:00, :30) and
-    #    can delay them for hours — observed firing 4-10+ hours late on
-    #    this repo. :08 dodges the worst of that congestion (GitHub's own
-    #    guidance), and the gate below tolerates whatever's left: it
-    #    accepts any run from 6 a.m. Eastern onward that day rather than
-    #    requiring an exact-hour match, since a late send beats no send.
+    # Slow-but-reliable fallback only — GitHub's own scheduler has been
+    # observed firing these 4-10+ hours late on this repo regardless of
+    # which minute is picked (tried :30, :23, :08; all similarly late), so
+    # this is no longer the primary trigger. That's now a Claude Routine
+    # calling workflow_dispatch directly at 6:08 a.m. Eastern, which isn't
+    # subject to GitHub's cron queue. Kept as a backstop in case the
+    # Routine ever misses a day — the gate below makes both paths safe to
+    # coexist, whichever fires first each day wins.
     - cron: "8 10 * * *"
     - cron: "8 11 * * *"
-  workflow_dispatch: {} # lets you trigger a real send manually from the Actions tab, for testing
+  workflow_dispatch:
+    inputs:
+      scheduled:
+        description: "Internal — set by the precision Routine so its dispatch goes through the same 6am-ET gate as the cron fallback. Leave as false for a manual test send from the Actions tab, which bypasses the gate."
+        required: false
+        default: "false"
 
-# Both candidate times can end up delayed into the same window and firing
-# close together; run one at a time so the second sees the first's result
-# before deciding whether to send again.
+# Cron fallback and Routine dispatch can end up close together; run one at a
+# time so the second sees the first's result before deciding whether to
+# send again.
 concurrency:
   group: send-daily-briefing
 
@@ -26,12 +29,24 @@ jobs:
   send:
     runs-on: ubuntu-latest
     steps:
-      # First, so a run that shouldn't send costs nothing further. Manual
-      # dispatches skip the gate entirely so test sends always go through.
+      # First, so a run that shouldn't send costs nothing further. A bare
+      # manual dispatch (clicking "Run workflow" with no input change) skips
+      # the gate entirely so test sends always go through; the cron fallback
+      # and Routine-triggered dispatches (scheduled=true) both go through it.
       - id: gate
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          must_gate=false
+          [ "${{ github.event_name }}" = "schedule" ] && must_gate=true
+          [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.scheduled }}" = "true" ] && must_gate=true
+
+          if [ "$must_gate" = "false" ]; then
+            echo "Manual test dispatch — bypassing gate"
+            echo "send=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           hour=$(TZ=America/New_York date +%H)
           today_et=$(TZ=America/New_York date +%F)
           echo "Eastern hour is $hour, Eastern date is $today_et"
@@ -39,9 +54,9 @@ jobs:
           sent_today=false
           if [ "$hour" -ge 6 ]; then
             # Widening the hour check to "6am onward" (rather than exactly
-            # 6) means the two cron slots can both land well past their
-            # target and still send — but that makes the workflow's own
-            # run history untrustworthy as a "did we already send today"
+            # 6) means both this path and the cron fallback can land late
+            # and still send — but that makes the workflow's own run
+            # history untrustworthy as a "did we already send today"
             # signal, since a *skipped* run also reports overall conclusion
             # "success" (nothing failed, steps just didn't run). So check
             # whether the send step itself actually executed on a run from
@@ -69,19 +84,19 @@ jobs:
           fi
 
       - uses: actions/checkout@v4
-        if: github.event_name != 'schedule' || steps.gate.outputs.send == 'true'
+        if: steps.gate.outputs.send == 'true'
 
       - uses: actions/setup-node@v4
-        if: github.event_name != 'schedule' || steps.gate.outputs.send == 'true'
+        if: steps.gate.outputs.send == 'true'
         with:
           node-version: 20
           cache: npm
 
       - run: npm ci
-        if: github.event_name != 'schedule' || steps.gate.outputs.send == 'true'
+        if: steps.gate.outputs.send == 'true'
 
       - run: npx tsx src/index.ts
-        if: github.event_name != 'schedule' || steps.gate.outputs.send == 'true'
+        if: steps.gate.outputs.send == 'true'
         env:
           # ProjDash and quicksum-remote are open, unauthenticated MCP
           # endpoints (verified directly against their source, both the
