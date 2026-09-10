@@ -49,8 +49,7 @@ const SCHEDULE_BY_DAY: Record<number, ChoreDay> = {
 // decision" (the schedule graphic's own ground rule).
 export const DAILY_MAINTENANCE: string[] = [
   "Wipe down counter & stove",
-  "Sweep kitchen floor",
-  "Sweep foyer",
+  "Vacuum hardwoods",
   "Bathroom sink quick wipe",
   "Kitchen sink quick wipe",
   "Clear ledge on kitchen",
