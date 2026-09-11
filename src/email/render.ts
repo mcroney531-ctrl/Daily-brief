@@ -57,7 +57,7 @@ function projdashSubsection(eyebrow: string, items: ProjdashItem[]): string {
 
 function quicksumCard(pick: QuicksumPick): string {
   return `
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f2f2f2; border-radius:12px; margin-top:12px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#d3d9de; border-radius:12px; margin-top:12px;">
       <tr>
         <td style="padding:16px 18px;">
           <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1a1a1a; line-height:1.35;">${escapeHtml(pick.title)}</div>
@@ -118,7 +118,7 @@ function poolActiveCallout(active: LinkhoardLink[]): string {
             <td style="background:#ffffff; padding:12px 22px 0;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                 <tr>
-                  <td style="background:#ececec; border-radius:12px; padding:14px 16px;">
+                  <td style="background:#d3d9de; border-radius:12px; padding:14px 16px;">
                     ${lines}
                   </td>
                 </tr>
@@ -275,7 +275,7 @@ export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): stri
             <td style="background:#ffffff; border-radius:16px 16px 0 0; padding:16px 22px 0;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                 <tr>
-                  <td style="background:#ececec; border-radius:12px; padding:14px 16px;">
+                  <td style="background:#d3d9de; border-radius:12px; padding:14px 16px;">
                     ${choreNudgeBody(zone, tasks, DAILY_MAINTENANCE)}
                   </td>
                 </tr>
