@@ -38,7 +38,7 @@ function projdashItemRow(item: ProjdashItem): string {
   return `
     <tr>
       <td style="padding:10px 0; border-bottom:1px solid #e5e5e5;">
-        <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; line-height:1.4;">${titleHtml}</div>
+        <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; line-height:1.4;">${titleHtml}</div>
         ${meta ? `<div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.03em; text-transform:uppercase; color:#808080; margin-top:3px;">${escapeHtml(meta)}</div>` : ""}
       </td>
     </tr>`;
@@ -60,9 +60,9 @@ function quicksumCard(pick: QuicksumPick): string {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f2f2f2; border-radius:12px; margin-top:12px;">
       <tr>
         <td style="padding:16px 18px;">
-          <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1a1a1a; line-height:1.35;">${escapeHtml(pick.title)}</div>
+          <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1a1a1a; line-height:1.35;">${escapeHtml(pick.title)}</div>
           <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.03em; text-transform:uppercase; color:#808080; margin-top:4px;">${escapeHtml(pick.author)}</div>
-          ${pick.hook ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#333333; line-height:1.5; margin-top:8px;">${escapeHtml(pick.hook)}</div>` : ""}
+          ${pick.hook ? `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#333333; line-height:1.5; margin-top:8px;">${escapeHtml(pick.hook)}</div>` : ""}
         </td>
       </tr>
     </table>`;
@@ -72,7 +72,7 @@ function quicksumCard(pick: QuicksumPick): string {
 // gets the full-width card treatment rather than a one-line callout.
 function menuBody(menu: MenuSlice): string {
   if (menu.categories.length === 0) {
-    return `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Nothing planned yet this week.</div>`;
+    return `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Nothing planned yet this week.</div>`;
   }
 
   const groups = menu.categories
@@ -83,7 +83,7 @@ function menuBody(menu: MenuSlice): string {
       ${group.items
         .map(
           (item) =>
-            `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; color:#1a1a1a; line-height:1.45; padding:3px 0;">${escapeHtml(item)}</div>`
+            `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; color:#1a1a1a; line-height:1.45; padding:3px 0;">${escapeHtml(item)}</div>`
         )
         .join("")}
     </div>`
@@ -110,7 +110,7 @@ function poolActiveCallout(active: LinkhoardLink[]): string {
   const lines = active
     .map(
       (link) =>
-        `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#1a1a1a; line-height:1.6;">Don't forget to check out <strong>${escapeHtml(poolLinkTitle(link))}</strong>.</div>`
+        `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#1a1a1a; line-height:1.6;">Don't forget to check out <strong>${escapeHtml(poolLinkTitle(link))}</strong>.</div>`
     )
     .join("");
   return `
@@ -164,10 +164,10 @@ function poolGalaxyCard(pick: LinkhoardLink, iconSrc: string): string {
                 </tr>
               </table>
               <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:5px;">You might be interested in</div>
-              <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; line-height:1.35; margin-bottom:8px;">
+              <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; line-height:1.35; margin-bottom:8px;">
                 <a href="${escapeHtml(pick.url)}" style="color:#ffffff; text-decoration:underline; text-decoration-color:rgba(255,255,255,0.5);">${escapeHtml(poolLinkTitle(pick))}</a>
               </div>
-              ${pick.description ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:rgba(255,255,255,0.82); line-height:1.5;">${escapeHtml(pick.description)}</div>` : ""}
+              ${pick.description ? `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:rgba(255,255,255,0.82); line-height:1.5;">${escapeHtml(pick.description)}</div>` : ""}
             </td>
           </tr>
         </table>
@@ -194,14 +194,14 @@ function choreTaskList(tasks: string[]): string {
   return tasks
     .map(
       (task) =>
-        `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:13px; color:#1a1a1a; line-height:1.6;">– ${escapeHtml(task)}</div>`
+        `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:13px; color:#1a1a1a; line-height:1.6;">– ${escapeHtml(task)}</div>`
     )
     .join("");
 }
 
 function choreNudgeBody(zone: string, tasks: string[], dailyMaintenance: string[]): string {
   return `
-    <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#1a1a1a; line-height:1.5;">
+    <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#1a1a1a; line-height:1.5;">
       Don't forget, today you're cleaning the <strong>${escapeHtml(zone)}</strong>:
     </div>
     <div style="margin-top:6px;">${choreTaskList(tasks)}</div>
@@ -224,7 +224,7 @@ export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): stri
   const projdashIsQuiet = inProgress.length === 0 && openHighPriority.length === 0 && unassigned.length === 0;
 
   const projdashBody = projdashIsQuiet
-    ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Nothing pulled from ProjDash today — clear board.</div>`
+    ? `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Nothing pulled from ProjDash today — clear board.</div>`
     : [
         projdashSubsection("In Progress", inProgress),
         projdashSubsection("Open · High Priority", openHighPriority),
@@ -233,7 +233,7 @@ export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): stri
 
   const quicksumBody = data.quicksumPicks.length
     ? data.quicksumPicks.map(quicksumCard).join("")
-    : `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Reading queue is empty — add something to QuickSum.</div>`;
+    : `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Reading queue is empty — add something to QuickSum.</div>`;
 
   const poolActiveHtml = poolActiveCallout(data.pool.active);
   const poolPickHtml = data.pool.pick ? poolGalaxyCard(data.pool.pick, poolIconSrc) : "";
@@ -244,9 +244,14 @@ export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): stri
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Daily Briefing</title>
+<!-- Best-effort only — clients that strip <head> stylesheets (Gmail,
+     mostly) fall back to the Helvetica/Arial stack declared inline on
+     every element; this only helps clients that actually honor it
+     (Apple Mail and a few others). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alata&display=swap">
 </head>
-<body style="margin:0; padding:0; background:#f0f0f0; font-family:'Lato',Helvetica,Arial,sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f0f0f0;">
+<body style="margin:0; padding:0; background:#d3d9de; font-family:'Alata',Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#d3d9de;">
     <tr>
       <td align="center" style="padding:24px 12px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:480px; width:100%;">
@@ -254,7 +259,7 @@ export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): stri
           <tr>
             <td style="background:#1a1a1a; border-radius:16px; padding:24px 22px;">
               <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#cccccc;">Daily Briefing</div>
-              <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:20px; font-weight:700; color:#ffffff; margin-top:6px;">${escapeHtml(formatDate(data.date))}</div>
+              <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:20px; font-weight:700; color:#ffffff; margin-top:6px;">${escapeHtml(formatDate(data.date))}</div>
             </td>
           </tr>
 
@@ -283,7 +288,7 @@ export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): stri
           <tr><td style="background:#ffffff; border-radius:0 0 16px 16px; height:16px; line-height:16px; font-size:0;">&nbsp;</td></tr>
 
           <tr>
-            <td style="background:#f0f0f0; padding:0 22px 22px;">
+            <td style="background:#d3d9de; padding:0 22px 22px;">
               ${sectionCard("ProjDash", projdashBody)}
               ${poolPickHtml}
               ${sectionCard("QuickSum Picks", quicksumBody)}
