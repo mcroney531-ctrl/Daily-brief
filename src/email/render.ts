@@ -31,15 +31,15 @@ function formatDate(date: Date): string {
 function projdashItemRow(item: ProjdashItem): string {
   const title = escapeHtml(item.title);
   const titleHtml = item.url
-    ? `<a href="${escapeHtml(item.url)}" style="color:#1d4a30; text-decoration:none; font-weight:600;">${title}</a>`
-    : `<span style="font-weight:600; color:#1d1d1d;">${title}</span>`;
+    ? `<a href="${escapeHtml(item.url)}" style="color:#1a1a1a; text-decoration:underline; font-weight:600;">${title}</a>`
+    : `<span style="font-weight:600; color:#1a1a1a;">${title}</span>`;
   const meta = [item.hub, item.category].filter(Boolean).join(" / ");
 
   return `
     <tr>
-      <td style="padding:10px 0; border-bottom:1px solid #eef1ee;">
+      <td style="padding:10px 0; border-bottom:1px solid #e5e5e5;">
         <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; line-height:1.4;">${titleHtml}</div>
-        ${meta ? `<div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.03em; text-transform:uppercase; color:#7c8a80; margin-top:3px;">${escapeHtml(meta)}</div>` : ""}
+        ${meta ? `<div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.03em; text-transform:uppercase; color:#808080; margin-top:3px;">${escapeHtml(meta)}</div>` : ""}
       </td>
     </tr>`;
 }
@@ -48,7 +48,7 @@ function projdashSubsection(eyebrow: string, items: ProjdashItem[]): string {
   if (items.length === 0) return "";
   return `
     <div style="margin-top:18px;">
-      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#1d4a30; font-weight:700; margin-bottom:4px;">${escapeHtml(eyebrow)}</div>
+      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#1a1a1a; font-weight:700; margin-bottom:4px;">${escapeHtml(eyebrow)}</div>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
         ${items.map(projdashItemRow).join("")}
       </table>
@@ -57,12 +57,12 @@ function projdashSubsection(eyebrow: string, items: ProjdashItem[]): string {
 
 function quicksumCard(pick: QuicksumPick): string {
   return `
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f5f8f6; border-radius:12px; margin-top:12px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f2f2f2; border-radius:12px; margin-top:12px;">
       <tr>
         <td style="padding:16px 18px;">
-          <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1d1d1d; line-height:1.35;">${escapeHtml(pick.title)}</div>
-          <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.03em; text-transform:uppercase; color:#7c8a80; margin-top:4px;">${escapeHtml(pick.author)}</div>
-          ${pick.hook ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#3c463f; line-height:1.5; margin-top:8px;">${escapeHtml(pick.hook)}</div>` : ""}
+          <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1a1a1a; line-height:1.35;">${escapeHtml(pick.title)}</div>
+          <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.03em; text-transform:uppercase; color:#808080; margin-top:4px;">${escapeHtml(pick.author)}</div>
+          ${pick.hook ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#333333; line-height:1.5; margin-top:8px;">${escapeHtml(pick.hook)}</div>` : ""}
         </td>
       </tr>
     </table>`;
@@ -72,18 +72,18 @@ function quicksumCard(pick: QuicksumPick): string {
 // gets the full-width card treatment rather than a one-line callout.
 function menuBody(menu: MenuSlice): string {
   if (menu.categories.length === 0) {
-    return `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#7c8a80;">Nothing planned yet this week.</div>`;
+    return `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Nothing planned yet this week.</div>`;
   }
 
   const groups = menu.categories
     .map(
       (group) => `
     <div style="margin-top:14px;">
-      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#1d4a30; font-weight:700; margin-bottom:6px;">${escapeHtml(group.category)}</div>
+      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#1a1a1a; font-weight:700; margin-bottom:6px;">${escapeHtml(group.category)}</div>
       ${group.items
         .map(
           (item) =>
-            `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; color:#1d1d1d; line-height:1.45; padding:3px 0;">${escapeHtml(item)}</div>`
+            `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; color:#1a1a1a; line-height:1.45; padding:3px 0;">${escapeHtml(item)}</div>`
         )
         .join("")}
     </div>`
@@ -93,7 +93,7 @@ function menuBody(menu: MenuSlice): string {
   // Without this the list just quietly shrinks as the week gets handled,
   // which reads as things going missing rather than progress.
   const covered = menu.coveredCount
-    ? `<div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; color:#9aa79f; margin-top:16px;">${menu.coveredCount} already covered</div>`
+    ? `<div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; color:#999999; margin-top:16px;">${menu.coveredCount} already covered</div>`
     : "";
 
   return `${groups}${covered}`;
@@ -110,7 +110,7 @@ function poolActiveCallout(active: LinkhoardLink[]): string {
   const lines = active
     .map(
       (link) =>
-        `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#1d4a30; line-height:1.6;">Don't forget to check out <strong>${escapeHtml(poolLinkTitle(link))}</strong>.</div>`
+        `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#1a1a1a; line-height:1.6;">Don't forget to check out <strong>${escapeHtml(poolLinkTitle(link))}</strong>.</div>`
     )
     .join("");
   return `
@@ -118,7 +118,7 @@ function poolActiveCallout(active: LinkhoardLink[]): string {
             <td style="background:#ffffff; padding:12px 22px 0;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                 <tr>
-                  <td style="background:#eef4f0; border-radius:12px; padding:14px 16px;">
+                  <td style="background:#ececec; border-radius:12px; padding:14px 16px;">
                     ${lines}
                   </td>
                 </tr>
@@ -131,12 +131,12 @@ function poolActiveCallout(active: LinkhoardLink[]): string {
 // discovery, not obligation.
 function poolPickCard(pick: LinkhoardLink): string {
   return `
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f5f8f6; border-radius:12px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f2f2f2; border-radius:12px;">
       <tr>
         <td style="padding:16px 18px;">
-          <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; text-transform:uppercase; color:#9aa79f; margin-bottom:4px;">You might be interested in</div>
-          <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1d1d1d; line-height:1.35;"><a href="${escapeHtml(pick.url)}" style="color:#1d1d1d; text-decoration:none;">${escapeHtml(poolLinkTitle(pick))}</a></div>
-          ${pick.description ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#3c463f; line-height:1.5; margin-top:8px;">${escapeHtml(pick.description)}</div>` : ""}
+          <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; text-transform:uppercase; color:#999999; margin-bottom:4px;">You might be interested in</div>
+          <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1a1a1a; line-height:1.35;"><a href="${escapeHtml(pick.url)}" style="color:#1a1a1a; text-decoration:underline;">${escapeHtml(poolLinkTitle(pick))}</a></div>
+          ${pick.description ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#333333; line-height:1.5; margin-top:8px;">${escapeHtml(pick.description)}</div>` : ""}
         </td>
       </tr>
     </table>`;
@@ -146,8 +146,8 @@ function sectionCard(eyebrow: string, innerHtml: string): string {
   return `
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; margin-top:16px;">
     <tr>
-      <td style="background:#ffffff; border:1px solid #e7ece8; border-radius:16px; padding:20px;">
-        <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#7c8a80; margin-bottom:8px;">${escapeHtml(eyebrow)}</div>
+      <td style="background:#ffffff; border:1px solid #e2e2e2; border-radius:16px; padding:20px;">
+        <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#808080; margin-bottom:8px;">${escapeHtml(eyebrow)}</div>
         ${innerHtml}
       </td>
     </tr>
@@ -160,18 +160,18 @@ function choreTaskList(tasks: string[]): string {
   return tasks
     .map(
       (task) =>
-        `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:13px; color:#1d4a30; line-height:1.6;">– ${escapeHtml(task)}</div>`
+        `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:13px; color:#1a1a1a; line-height:1.6;">– ${escapeHtml(task)}</div>`
     )
     .join("");
 }
 
 function choreNudgeBody(zone: string, tasks: string[], dailyMaintenance: string[]): string {
   return `
-    <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#1d4a30; line-height:1.5;">
+    <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#1a1a1a; line-height:1.5;">
       Don't forget, today you're cleaning the <strong>${escapeHtml(zone)}</strong>:
     </div>
     <div style="margin-top:6px;">${choreTaskList(tasks)}</div>
-    <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#5c7c68; margin-top:12px;">Daily Maintenance</div>
+    <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#666666; margin-top:12px;">Daily Maintenance</div>
     <div style="margin-top:4px;">${choreTaskList(dailyMaintenance)}</div>`;
 }
 
@@ -181,7 +181,7 @@ export function renderBriefHtml(data: BriefData): string {
   const projdashIsQuiet = inProgress.length === 0 && openHighPriority.length === 0 && unassigned.length === 0;
 
   const projdashBody = projdashIsQuiet
-    ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#7c8a80;">Nothing pulled from ProjDash today — clear board.</div>`
+    ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Nothing pulled from ProjDash today — clear board.</div>`
     : [
         projdashSubsection("In Progress", inProgress),
         projdashSubsection("Open · High Priority", openHighPriority),
@@ -190,7 +190,7 @@ export function renderBriefHtml(data: BriefData): string {
 
   const quicksumBody = data.quicksumPicks.length
     ? data.quicksumPicks.map(quicksumCard).join("")
-    : `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#7c8a80;">Reading queue is empty — add something to QuickSum.</div>`;
+    : `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Reading queue is empty — add something to QuickSum.</div>`;
 
   const poolActiveHtml = poolActiveCallout(data.pool.active);
   const poolPickHtml = data.pool.pick ? sectionCard("From the Pool", poolPickCard(data.pool.pick)) : "";
@@ -202,15 +202,15 @@ export function renderBriefHtml(data: BriefData): string {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Daily Briefing</title>
 </head>
-<body style="margin:0; padding:0; background:#f2f4f2; font-family:'Lato',Helvetica,Arial,sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f2f4f2;">
+<body style="margin:0; padding:0; background:#f0f0f0; font-family:'Lato',Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f0f0f0;">
     <tr>
       <td align="center" style="padding:24px 12px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:480px; width:100%;">
 
           <tr>
-            <td style="background:#1d4a30; border-radius:16px; padding:24px 22px;">
-              <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#c9dcd0;">Daily Briefing</div>
+            <td style="background:#1a1a1a; border-radius:16px; padding:24px 22px;">
+              <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#cccccc;">Daily Briefing</div>
               <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:20px; font-weight:700; color:#ffffff; margin-top:6px;">${escapeHtml(formatDate(data.date))}</div>
             </td>
           </tr>
@@ -227,7 +227,7 @@ export function renderBriefHtml(data: BriefData): string {
             <td style="background:#ffffff; border-radius:16px 16px 0 0; padding:16px 22px 0;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                 <tr>
-                  <td style="background:#eef4f0; border-radius:12px; padding:14px 16px;">
+                  <td style="background:#ececec; border-radius:12px; padding:14px 16px;">
                     ${choreNudgeBody(zone, tasks, DAILY_MAINTENANCE)}
                   </td>
                 </tr>
@@ -240,12 +240,12 @@ export function renderBriefHtml(data: BriefData): string {
           <tr><td style="background:#ffffff; border-radius:0 0 16px 16px; height:16px; line-height:16px; font-size:0;">&nbsp;</td></tr>
 
           <tr>
-            <td style="background:#f2f4f2; padding:0 22px 22px;">
+            <td style="background:#f0f0f0; padding:0 22px 22px;">
               ${sectionCard("ProjDash", projdashBody)}
               ${poolPickHtml}
               ${sectionCard("QuickSum Picks", quicksumBody)}
 
-              <div style="text-align:center; font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; color:#9aa79f; margin-top:20px;">
+              <div style="text-align:center; font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; color:#999999; margin-top:20px;">
                 One glance, then get on with the day.
               </div>
             </td>
