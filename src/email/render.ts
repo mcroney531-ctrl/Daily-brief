@@ -31,8 +31,8 @@ function formatDate(date: Date): string {
 function projdashItemRow(item: ProjdashItem): string {
   const title = escapeHtml(item.title);
   const titleHtml = item.url
-    ? `<a href="${escapeHtml(item.url)}" style="color:#1a1a1a; text-decoration:underline; font-weight:600;">${title}</a>`
-    : `<span style="font-weight:600; color:#1a1a1a;">${title}</span>`;
+    ? `<a href="${escapeHtml(item.url)}" style="color:#090f1f; text-decoration:underline; font-weight:600;">${title}</a>`
+    : `<span style="font-weight:600; color:#090f1f;">${title}</span>`;
   const meta = [item.hub, item.category].filter(Boolean).join(" / ");
 
   return `
@@ -48,7 +48,7 @@ function projdashSubsection(eyebrow: string, items: ProjdashItem[]): string {
   if (items.length === 0) return "";
   return `
     <div style="margin-top:18px;">
-      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#1a1a1a; font-weight:700; margin-bottom:4px;">${escapeHtml(eyebrow)}</div>
+      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#090f1f; font-weight:700; margin-bottom:4px;">${escapeHtml(eyebrow)}</div>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
         ${items.map(projdashItemRow).join("")}
       </table>
@@ -60,7 +60,7 @@ function quicksumCard(pick: QuicksumPick): string {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#d3d9de; border-radius:12px; margin-top:12px;">
       <tr>
         <td style="padding:16px 18px;">
-          <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1a1a1a; line-height:1.35;">${escapeHtml(pick.title)}</div>
+          <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#090f1f; line-height:1.35;">${escapeHtml(pick.title)}</div>
           <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.03em; text-transform:uppercase; color:#808080; margin-top:4px;">${escapeHtml(pick.author)}</div>
           ${pick.hook ? `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#333333; line-height:1.5; margin-top:8px;">${escapeHtml(pick.hook)}</div>` : ""}
         </td>
@@ -79,11 +79,11 @@ function menuBody(menu: MenuSlice): string {
     .map(
       (group) => `
     <div style="margin-top:14px;">
-      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#1a1a1a; font-weight:700; margin-bottom:6px;">${escapeHtml(group.category)}</div>
+      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#090f1f; font-weight:700; margin-bottom:6px;">${escapeHtml(group.category)}</div>
       ${group.items
         .map(
           (item) =>
-            `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; color:#1a1a1a; line-height:1.45; padding:3px 0;">${escapeHtml(item)}</div>`
+            `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; color:#090f1f; line-height:1.45; padding:3px 0;">${escapeHtml(item)}</div>`
         )
         .join("")}
     </div>`
@@ -110,7 +110,7 @@ function poolActiveCallout(active: LinkhoardLink[]): string {
   const lines = active
     .map(
       (link) =>
-        `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#1a1a1a; line-height:1.6;">Don't forget to check out <strong>${escapeHtml(poolLinkTitle(link))}</strong>.</div>`
+        `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#090f1f; line-height:1.6;">Don't forget to check out <strong>${escapeHtml(poolLinkTitle(link))}</strong>.</div>`
     )
     .join("");
   return `
@@ -194,14 +194,14 @@ function choreTaskList(tasks: string[]): string {
   return tasks
     .map(
       (task) =>
-        `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:13px; color:#1a1a1a; line-height:1.6;">– ${escapeHtml(task)}</div>`
+        `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:13px; color:#090f1f; line-height:1.6;">– ${escapeHtml(task)}</div>`
     )
     .join("");
 }
 
 function choreNudgeBody(zone: string, tasks: string[], dailyMaintenance: string[]): string {
   return `
-    <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#1a1a1a; line-height:1.5;">
+    <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#090f1f; line-height:1.5;">
       Don't forget, today you're cleaning the <strong>${escapeHtml(zone)}</strong>:
     </div>
     <div style="margin-top:6px;">${choreTaskList(tasks)}</div>
@@ -257,7 +257,7 @@ export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): stri
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:480px; width:100%;">
 
           <tr>
-            <td style="background:#1a1a1a; border-radius:16px; padding:24px 22px;">
+            <td style="background:#090f1f; border-radius:16px; padding:24px 22px;">
               <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#cccccc;">Daily Briefing</div>
               <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:20px; font-weight:700; color:#ffffff; margin-top:6px;">${escapeHtml(formatDate(data.date))}</div>
             </td>
