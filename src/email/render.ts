@@ -130,6 +130,15 @@ function poolActiveCallout(active: LinkhoardLink[]): string {
 // A handful of fixed dot positions layered under the linear gradient —
 // static (no JS/animation available in email), but reads as a starfield.
 // Colors sampled directly from LinkHoard's own app header.
+//
+// Gmail (web, iOS, Android — confirmed against a real send) doesn't
+// support CSS gradients as background-image at all and silently drops
+// the whole declaration, so without a solid background-color fallback
+// the card rendered plain white with invisible white-on-white text.
+// This is pure enhancement now — clients that honor it get the gradient
+// layered on top of the flat navy fallback (#272e7e, GALAXY_FALLBACK_BG
+// below), everyone else just sees the solid color.
+const GALAXY_FALLBACK_BG = "#272e7e";
 const GALAXY_BACKGROUND = [
   "radial-gradient(circle at 15% 20%, rgba(255,255,255,0.55) 1px, transparent 1.6px)",
   "radial-gradient(circle at 75% 15%, rgba(255,255,255,0.45) 1px, transparent 1.6px)",
@@ -152,7 +161,7 @@ function poolGalaxyCard(pick: LinkhoardLink, iconSrc: string): string {
       <td style="background:#ffffff; border-radius:18px; padding:4px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
           <tr>
-            <td style="background-image:${GALAXY_BACKGROUND}; border-radius:15px; padding:20px 20px 22px;">
+            <td bgcolor="${GALAXY_FALLBACK_BG}" style="background-color:${GALAXY_FALLBACK_BG}; background-image:${GALAXY_BACKGROUND}; border-radius:15px; padding:20px 20px 22px;">
               <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse; margin-bottom:14px;">
                 <tr>
                   <td style="padding-right:8px; vertical-align:middle;">
