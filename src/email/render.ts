@@ -127,19 +127,53 @@ function poolActiveCallout(active: LinkhoardLink[]): string {
           </tr>`;
 }
 
-// The one random pick gets the softer, browsier QuickSum-card treatment —
-// discovery, not obligation.
-function poolPickCard(pick: LinkhoardLink): string {
+// A handful of fixed dot positions layered under the linear gradient —
+// static (no JS/animation available in email), but reads as a starfield.
+// Colors sampled directly from LinkHoard's own app header.
+const GALAXY_BACKGROUND = [
+  "radial-gradient(circle at 15% 20%, rgba(255,255,255,0.55) 1px, transparent 1.6px)",
+  "radial-gradient(circle at 75% 15%, rgba(255,255,255,0.45) 1px, transparent 1.6px)",
+  "radial-gradient(circle at 40% 10%, rgba(255,255,255,0.35) 1px, transparent 1.6px)",
+  "radial-gradient(circle at 90% 55%, rgba(255,255,255,0.4) 1px, transparent 1.6px)",
+  "radial-gradient(circle at 25% 70%, rgba(255,255,255,0.3) 1px, transparent 1.6px)",
+  "radial-gradient(circle at 60% 85%, rgba(255,255,255,0.45) 1px, transparent 1.6px)",
+  "radial-gradient(circle at 85% 90%, rgba(255,255,255,0.3) 1px, transparent 1.6px)",
+  "linear-gradient(135deg, #150f3d 0%, #1c2f6b 45%, #2e3aa0 75%, #3d3fae 100%)",
+].join(",");
+
+// The one random pick gets LinkHoard's own header treatment (deep-space
+// gradient + icon) lifted wholesale — a deliberate break from the rest of
+// the brief's neutral palette, since this is the one section pulling
+// straight from that app rather than being about the day itself.
+function poolGalaxyCard(pick: LinkhoardLink, iconSrc: string): string {
   return `
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#f2f2f2; border-radius:12px;">
-      <tr>
-        <td style="padding:16px 18px;">
-          <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; text-transform:uppercase; color:#999999; margin-bottom:4px;">You might be interested in</div>
-          <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; color:#1a1a1a; line-height:1.35;"><a href="${escapeHtml(pick.url)}" style="color:#1a1a1a; text-decoration:underline;">${escapeHtml(poolLinkTitle(pick))}</a></div>
-          ${pick.description ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#333333; line-height:1.5; margin-top:8px;">${escapeHtml(pick.description)}</div>` : ""}
-        </td>
-      </tr>
-    </table>`;
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; margin-top:16px;">
+    <tr>
+      <td style="background:#ffffff; border-radius:18px; padding:4px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+          <tr>
+            <td style="background-image:${GALAXY_BACKGROUND}; border-radius:15px; padding:20px 20px 22px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse; margin-bottom:14px;">
+                <tr>
+                  <td style="padding-right:8px; vertical-align:middle;">
+                    <img src="${escapeHtml(iconSrc)}" width="22" height="22" alt="" style="display:block; border-radius:6px; box-shadow:0 0 0 1px rgba(255,255,255,0.2);">
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.65);">From the Pool</div>
+                  </td>
+                </tr>
+              </table>
+              <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:10px; letter-spacing:0.05em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:5px;">You might be interested in</div>
+              <div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:15px; font-weight:700; line-height:1.35; margin-bottom:8px;">
+                <a href="${escapeHtml(pick.url)}" style="color:#ffffff; text-decoration:underline; text-decoration-color:rgba(255,255,255,0.5);">${escapeHtml(poolLinkTitle(pick))}</a>
+              </div>
+              ${pick.description ? `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:rgba(255,255,255,0.82); line-height:1.5;">${escapeHtml(pick.description)}</div>` : ""}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>`;
 }
 
 function sectionCard(eyebrow: string, innerHtml: string): string {
@@ -175,7 +209,16 @@ function choreNudgeBody(zone: string, tasks: string[], dailyMaintenance: string[
     <div style="margin-top:4px;">${choreTaskList(dailyMaintenance)}</div>`;
 }
 
-export function renderBriefHtml(data: BriefData): string {
+export interface RenderOptions {
+  // "cid:linkhoard-icon" by default, matching the attachment send.ts wires
+  // up — overridable so the local preview script (which never goes through
+  // nodemailer) can pass a data URI instead, since a browser will render
+  // that fine but Gmail strips inline data URIs from received mail.
+  poolIconSrc?: string;
+}
+
+export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): string {
+  const poolIconSrc = opts.poolIconSrc ?? "cid:linkhoard-icon";
   const { zone, tasks } = getTodaysChores(data.date);
   const { inProgress, openHighPriority, unassigned } = data.projdash;
   const projdashIsQuiet = inProgress.length === 0 && openHighPriority.length === 0 && unassigned.length === 0;
@@ -193,7 +236,7 @@ export function renderBriefHtml(data: BriefData): string {
     : `<div style="font-family:'Lato',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Reading queue is empty — add something to QuickSum.</div>`;
 
   const poolActiveHtml = poolActiveCallout(data.pool.active);
-  const poolPickHtml = data.pool.pick ? sectionCard("From the Pool", poolPickCard(data.pool.pick)) : "";
+  const poolPickHtml = data.pool.pick ? poolGalaxyCard(data.pool.pick, poolIconSrc) : "";
 
   return `<!doctype html>
 <html lang="en">

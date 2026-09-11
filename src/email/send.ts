@@ -1,5 +1,13 @@
 import nodemailer from "nodemailer";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 import { config } from "../config.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Referenced from render.ts via "cid:linkhoard-icon" — inline data URIs get
+// stripped by Gmail on receipt, so the icon has to travel as a real
+// attachment with a Content-ID instead.
+const POOL_ICON_PATH = path.join(__dirname, "assets", "linkhoard-icon.png");
 
 export async function sendBriefEmail(subject: string, html: string, text: string): Promise<void> {
   if (!config.smtp.host || !config.smtp.user || !config.smtp.pass) {
@@ -21,5 +29,6 @@ export async function sendBriefEmail(subject: string, html: string, text: string
     subject,
     html,
     text,
+    attachments: [{ filename: "linkhoard-icon.png", path: POOL_ICON_PATH, cid: "linkhoard-icon" }],
   });
 }

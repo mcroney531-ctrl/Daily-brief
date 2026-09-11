@@ -1,4 +1,4 @@
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { renderBriefHtml, type BriefData } from "../src/email/render.js";
@@ -59,6 +59,13 @@ const mockData: BriefData = {
 };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// The real send embeds this via a cid: attachment (see send.ts) since Gmail
+// strips inline data URIs on receipt — but a plain data URI is exactly what
+// a browser preview needs, so swap it in here instead.
+const iconPath = path.join(__dirname, "..", "src", "email", "assets", "linkhoard-icon.png");
+const poolIconSrc = `data:image/png;base64,${readFileSync(iconPath).toString("base64")}`;
+
 const outPath = path.join(__dirname, "..", "preview.html");
-writeFileSync(outPath, renderBriefHtml(mockData), "utf-8");
+writeFileSync(outPath, renderBriefHtml(mockData, { poolIconSrc }), "utf-8");
 console.log(`Preview written to ${outPath}`);
