@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-09-16T10:08:00Z",
+  "generatedAt": "2026-09-16T03:58:29Z",
   "items": [
     {
       "title": "Self-hosted Audible PWA",
       "repo": "Audio-shelf",
-      "status": "favicon + maskable icons finalized; 95 tests green",
+      "status": "server fix deployed; awaiting cache clear + reinstall",
       "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
     }
   ]
