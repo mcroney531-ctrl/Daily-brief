@@ -1,4 +1,4 @@
-import type { ProjdashItem, ProjdashSlice } from "../mcp/projdash.js";
+import type { InFlightItem } from "../inFlight.js";
 import type { QuicksumPick } from "../mcp/quicksum.js";
 import type { LinkhoardLink, PoolSlice } from "../linkhoard.js";
 import type { MenuSlice } from "../food.js";
@@ -6,7 +6,7 @@ import { getTodaysChores, getChoreNudgeText, DAILY_MAINTENANCE } from "../chores
 
 export interface BriefData {
   date: Date;
-  projdash: ProjdashSlice;
+  inFlight: InFlightItem[];
   quicksumPicks: QuicksumPick[];
   pool: PoolSlice;
   menu: MenuSlice;
@@ -28,31 +28,30 @@ function formatDate(date: Date): string {
   });
 }
 
-function projdashItemRow(item: ProjdashItem): string {
-  const title = escapeHtml(item.title);
+function inFlightRow(item: InFlightItem): string {
   const titleHtml = item.url
-    ? `<a href="${escapeHtml(item.url)}" style="color:#090f1f; text-decoration:underline; font-weight:600;">${title}</a>`
-    : `<span style="font-weight:600; color:#090f1f;">${title}</span>`;
-  const meta = [item.hub, item.category].filter(Boolean).join(" / ");
+    ? `<a href="${escapeHtml(item.url)}" style="color:#090f1f; text-decoration:underline; font-weight:600;">${escapeHtml(item.title)}</a>`
+    : `<span style="font-weight:600; color:#090f1f;">${escapeHtml(item.title)}</span>`;
 
   return `
     <tr>
       <td style="padding:10px 0; border-bottom:1px solid #e5e5e5;">
         <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; line-height:1.4;">${titleHtml}</div>
-        ${meta ? `<div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.03em; text-transform:uppercase; color:#808080; margin-top:3px;">${escapeHtml(meta)}</div>` : ""}
+        ${item.repo ? `<div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.03em; text-transform:uppercase; color:#808080; margin-top:3px;">${escapeHtml(item.repo)}</div>` : ""}
+        <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#333333; line-height:1.5; margin-top:6px;">${escapeHtml(item.status)}</div>
       </td>
     </tr>`;
 }
 
-function projdashSubsection(eyebrow: string, items: ProjdashItem[]): string {
-  if (items.length === 0) return "";
-  return `
-    <div style="margin-top:18px;">
-      <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#090f1f; font-weight:700; margin-bottom:4px;">${escapeHtml(eyebrow)}</div>
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
-        ${items.map(projdashItemRow).join("")}
-      </table>
-    </div>`;
+// Sourced from Claude Code's own session activity (see inFlight.ts) rather
+// than a separately maintained tracker — whatever's shown here is current
+// by construction, since it's built from what was actually touched, not
+// from a status field someone has to remember to update.
+function inFlightBody(items: InFlightItem[]): string {
+  if (items.length === 0) {
+    return `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Nothing in flight — no sessions touched recently.</div>`;
+  }
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">${items.map(inFlightRow).join("")}</table>`;
 }
 
 function quicksumCard(pick: QuicksumPick): string {
@@ -229,16 +228,7 @@ export interface RenderOptions {
 export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): string {
   const poolIconSrc = opts.poolIconSrc ?? "cid:linkhoard-icon";
   const { zone, tasks } = getTodaysChores(data.date);
-  const { inProgress, openHighPriority, unassigned } = data.projdash;
-  const projdashIsQuiet = inProgress.length === 0 && openHighPriority.length === 0 && unassigned.length === 0;
-
-  const projdashBody = projdashIsQuiet
-    ? `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Nothing pulled from ProjDash today — clear board.</div>`
-    : [
-        projdashSubsection("In Progress", inProgress),
-        projdashSubsection("Open · High Priority", openHighPriority),
-        projdashSubsection("Triage / Unassigned", unassigned),
-      ].join("");
+  const inFlightBodyHtml = inFlightBody(data.inFlight);
 
   const quicksumBody = data.quicksumPicks.length
     ? data.quicksumPicks.map(quicksumCard).join("")
@@ -298,7 +288,7 @@ export function renderBriefHtml(data: BriefData, opts: RenderOptions = {}): stri
 
           <tr>
             <td style="background:#d3d9de; padding:0 22px 22px;">
-              ${sectionCard("ProjDash", projdashBody)}
+              ${sectionCard("Currently in Flight", inFlightBodyHtml)}
               ${poolPickHtml}
               ${sectionCard("QuickSum Picks", quicksumBody)}
 
@@ -339,20 +329,13 @@ export function renderBriefText(data: BriefData): string {
   }
   lines.push("");
 
-  lines.push("ProjDash");
-  const sections: Array<[string, ProjdashItem[]]> = [
-    ["In Progress", data.projdash.inProgress],
-    ["Open · High Priority", data.projdash.openHighPriority],
-    ["Triage / Unassigned", data.projdash.unassigned],
-  ];
-  const anyProjdash = sections.some(([, items]) => items.length > 0);
-  if (!anyProjdash) {
-    lines.push("  Nothing pulled from ProjDash today — clear board.");
+  lines.push("Currently in Flight");
+  if (data.inFlight.length === 0) {
+    lines.push("  Nothing in flight — no sessions touched recently.");
   } else {
-    for (const [label, items] of sections) {
-      if (items.length === 0) continue;
-      lines.push(`  ${label}:`);
-      for (const item of items) lines.push(`    - ${item.title}`);
+    for (const item of data.inFlight) {
+      lines.push(`  - ${item.title}${item.repo ? ` (${item.repo})` : ""}`);
+      lines.push(`    ${item.status}`);
     }
   }
   lines.push("");

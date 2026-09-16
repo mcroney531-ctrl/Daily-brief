@@ -5,7 +5,7 @@ things, pulled together each morning so there's one place to glance at before
 the day starts:
 
 1. **Chore nudge** — today's zone from the weekly Home Maintenance rotation (pure day-of-week lookup, no external call).
-2. **ProjDash slice** — items in progress, open + high priority, and unassigned/triage, pulled live via the `projdash` MCP server. Currently paused — ProjDash's category structure is being actively rewired by hand, so this section is along for the ride but not being actively refined right now.
+2. **Currently in Flight** — whatever Claude Code sessions have actually been touched in the last few days, pulled from a snapshot the precision-dispatch Routine writes each morning (see below). No separate tracker to maintain — it's current by construction, not by someone remembering to update a status field.
 3. **From the Pool** — a "don't forget" nudge for anything you've marked active in LinkHoard, plus one random "you might be interested in" pick from everything else. See below for how the active/inactive split works.
 4. **QuickSum picks** — two truly random saved summaries (title, author, one-sentence hook), pulled live via the `quicksum-remote` MCP server, to keep the reading queue alive.
 
@@ -23,10 +23,9 @@ cp .env.example .env
 
 | Variable | Purpose |
 |---|---|
-| `PROJDASH_MCP_URL` / `PROJDASH_MCP_COMMAND` | How to reach the projdash MCP server. Set the URL for an HTTP/SSE server, or the command for a local stdio process. Set exactly one. |
-| `QUICKSUM_MCP_URL` / `QUICKSUM_MCP_COMMAND` | Same, for quicksum-remote. |
+| `QUICKSUM_MCP_URL` / `QUICKSUM_MCP_COMMAND` | How to reach the quicksum-remote MCP server. Set the URL for an HTTP/SSE server, or the command for a local stdio process. Set exactly one. |
 | `LINKHOARD_API_URL` / `LINKHOARD_API_TOKEN` | LinkHoard's REST API (same one its PWA talks to) and its bearer token, for the "From the Pool" section. Left blank, that section is skipped rather than failing the send. |
-| `DAILY_BRIEF_MAX_ITEMS_PER_SECTION` | Cap per ProjDash bucket, default 5. Keeps the email scannable, not a full backlog. |
+| `DAILY_BRIEF_QUICKSUM_PICKS` | How many random QuickSum picks, default 2. |
 | `DAILY_BRIEF_QUICKSUM_PICKS` | How many random QuickSum picks, default 2. |
 | `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` / `SMTP_SECURE` | Outbound mail credentials. |
 | `EMAIL_FROM` / `EMAIL_TO` / `EMAIL_SUBJECT_PREFIX` | Addressing. |
@@ -54,16 +53,28 @@ taste:
 Run `npm run build` first so `dist/index.js` exists, or point cron at
 `npx tsx src/index.ts` directly if `tsx` is available in that environment.
 
-## How the ProjDash slice works
+## How the Currently in Flight slice works
 
-The three buckets are intentionally generic — `status: "in progress"`,
-`status: "open"` filtered client-side to `priority: "high"`, and
-`unassigned_only: true` — with no hardcoded category names. This is a known
-open item: ProjDash's category structure is actively being rewired by hand,
-so the pull mechanism only depends on `status`/`priority`/unassigned-ness,
-which stay stable across that rewiring. An item already shown in an earlier
-bucket (e.g. an in-progress item that's also high priority) is not repeated
-in a later one, to keep the email non-redundant.
+`src/inFlight.ts` just reads a small JSON snapshot (`src/email/in-flight.json`,
+committed to the repo) at send time — no live API call happens inside
+`index.ts`. The snapshot itself is written each morning by the Claude
+session behind the precision-dispatch Routine (the same one that calls
+`workflow_dispatch` at 6:08am ET), as a step before it triggers the send:
+
+1. Call `list_sessions` (Claude Code Remote) for this account.
+2. Keep sessions that have a real git repo attached, aren't this Daily-brief
+   session itself, aren't a recurring routine-fired session (chore/deep-read
+   reminders), and were updated within the last ~4 days.
+3. Sort by recency, take the top handful.
+4. For each: title, repo name, a one-line status pulled from Claude Code's
+   own `post_turn_summary.status_detail` (auto-written after every turn —
+   nothing to maintain), and a link back to that exact session.
+5. Commit the result to `src/email/in-flight.json` on `main`.
+
+The 4-day window means anything untouched drops off the list on its own —
+staleness is handled by not showing up, not by a status field someone has
+to remember to update. If the snapshot is missing or empty, the section
+just reads "Nothing in flight."
 
 ## How QuickSum selection works
 
@@ -89,8 +100,7 @@ now, as opposed to everything else in the hoard.
   enjoy," so hiding one on a given day would defeat the point.
 - **Pick**: one random link from everything else, excluding `archived`
   links (already dealt with — resurfacing them as a discovery prompt would
-  be noise, same reasoning as excluding done/tabled items from ProjDash's
-  triage bucket).
+  be noise).
 
 If `LINKHOARD_API_URL` isn't set, the whole section is just skipped — this
 is a deployment state (not configured yet), not a failure.
@@ -112,7 +122,6 @@ check changes visually.
 ## Deferred (not in v1, may revisit)
 
 - Rotating RLOP entry (same rotation pattern as QuickSum picks)
-- "Permission to skip" framing on the ProjDash section
-- "Yesterday you made progress on X" look-back via `updated_at`
-- A single "today's one thing" headline pulled out of the ProjDash slice
+- "Yesterday you made progress on X" look-back, applied more broadly than
+  just the in-flight snapshot
 - Aging/overdue item surfacing

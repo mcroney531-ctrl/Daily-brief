@@ -20,12 +20,6 @@ function envInt(name: string, fallback: number): number {
 }
 
 export const config = {
-  projdash: {
-    // A projdash MCP server can be reached either as a local stdio process
-    // or an already-running HTTP/SSE endpoint. Set exactly one.
-    command: optionalEnv("PROJDASH_MCP_COMMAND"),
-    url: optionalEnv("PROJDASH_MCP_URL"),
-  },
   quicksum: {
     // "quicksum-remote" implies an HTTP endpoint, but stdio is supported too
     // in case it's proxied locally.
@@ -49,7 +43,6 @@ export const config = {
     supabaseKey: optionalEnv("FOOD_SUPABASE_KEY"),
   },
   content: {
-    maxItemsPerSection: envInt("DAILY_BRIEF_MAX_ITEMS_PER_SECTION", 5),
     quicksumPickCount: envInt("DAILY_BRIEF_QUICKSUM_PICKS", 2),
   },
   smtp: {

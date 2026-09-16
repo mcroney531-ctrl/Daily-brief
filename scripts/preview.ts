@@ -2,29 +2,17 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { renderBriefHtml, type BriefData } from "../src/email/render.js";
-import type { ProjdashItem } from "../src/mcp/projdash.js";
-
-const mockItem = (overrides: Partial<ProjdashItem>): ProjdashItem => ({
-  id: overrides.id ?? Math.random().toString(36).slice(2),
-  title: "Untitled",
-  ...overrides,
-});
 
 const mockData: BriefData = {
   date: new Date(),
-  projdash: {
-    inProgress: [
-      mockItem({ title: "Rework onboarding flow copy", hub: "Momentum", category: "Product" }),
-      mockItem({ title: "Fix flaky CI on release branch", hub: "Momentum" }),
-    ],
-    openHighPriority: [
-      mockItem({ title: "Renew domain before expiry", category: "Ops", url: "https://example.com" }),
-    ],
-    unassigned: [
-      mockItem({ title: "Look into new analytics tool someone mentioned" }),
-      mockItem({ title: "Follow up on contractor invoice" }),
-    ],
-  },
+  inFlight: [
+    {
+      title: "Self-hosted Audible PWA",
+      repo: "Audio-shelf",
+      status: "favicon + maskable icons finalized; 95 tests green",
+      url: "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU",
+    },
+  ],
   quicksumPicks: [
     {
       id: "1",

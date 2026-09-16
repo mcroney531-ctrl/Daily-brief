@@ -98,11 +98,10 @@ jobs:
       - run: npx tsx src/index.ts
         if: steps.gate.outputs.send == 'true'
         env:
-          # ProjDash and quicksum-remote are open, unauthenticated MCP
-          # endpoints (verified directly against their source, both the
-          # Netlify and Railway deployments) — no token needed, safe to
-          # keep as plain values here rather than repo secrets.
-          PROJDASH_MCP_URL: https://project-tracker-mcp-production.up.railway.app/mcp
+          # quicksum-remote is an open, unauthenticated MCP endpoint
+          # (verified directly against its Railway deployment) — no token
+          # needed, safe to keep as a plain value here rather than a repo
+          # secret.
           QUICKSUM_MCP_URL: https://quicksum-mcp-production.up.railway.app/mcp
 
           # LinkHoard's auth status wasn't confirmed the same way (couldn't
