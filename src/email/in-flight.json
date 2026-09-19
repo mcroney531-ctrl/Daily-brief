@@ -1,16 +1,22 @@
 {
-  "generatedAt": "2026-09-18T11:12:45Z",
+  "generatedAt": "2026-09-19T10:09:25Z",
   "items": [
     {
       "title": "Dynasty Umbrella consolidation plan",
       "repo": "gm-command",
-      "status": "H-1 closed: fetch proxy allowlist hardened, 24 tests pass",
+      "status": "1A complete; awaiting go-ahead for 1B scope + chat.js decision",
       "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
+    },
+    {
+      "title": "Documentary Acquisitions Ledger handoff",
+      "repo": "waka",
+      "status": "chat composer: Enter now newlines, Cmd/Ctrl+Enter sends; auto-grow 42→160px",
+      "url": "https://claude.ai/code/session_016caW9AQU2ez57B38DbtGxH"
     },
     {
       "title": "Food Planning",
       "repo": "Food-planning",
-      "status": "Sunday Setup chat schema audited; ready to scope audit feature",
+      "status": "message composer: Enter now inserts newlines; Cmd+Enter sends",
       "url": "https://claude.ai/code/session_01USGhe1KHb4duQAenCnCng7"
     },
     {
