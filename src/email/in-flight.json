@@ -1,11 +1,17 @@
 {
-  "generatedAt": "2026-09-20T11:09:11Z",
+  "generatedAt": "2026-09-21T10:10:20Z",
   "items": [
     {
       "title": "Dynasty Umbrella consolidation plan",
       "repo": "gm-command",
-      "status": "401 auth error on report endpoint; GM_CHAT_SECRET mismatch",
+      "status": "Experiment 7 Request 1 ready; awaiting PowerShell output",
       "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
+    },
+    {
+      "title": "New session",
+      "repo": "ELC567-Bot",
+      "status": "landing→home→stage views built; start button wired; 213 tests green",
+      "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
     },
     {
       "title": "Documentary Acquisitions Ledger handoff",
