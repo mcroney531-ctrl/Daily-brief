@@ -1,17 +1,23 @@
 {
-  "generatedAt": "2026-09-21T11:14:32Z",
+  "generatedAt": "2026-09-22T10:10:40Z",
   "items": [
-    {
-      "title": "Dynasty Umbrella consolidation plan",
-      "repo": "gm-command",
-      "status": "Experiment 7 Request 1 ready; awaiting PowerShell output",
-      "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
-    },
     {
       "title": "New session",
       "repo": "ELC567-Bot",
-      "status": "landing→home→stage views built; start button wired; 213 tests green",
+      "status": "chat app summary drafted for job posting alignment",
       "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
+    },
+    {
+      "title": "Self-hosted Audible PWA",
+      "repo": "Audio-shelf",
+      "status": "drafted TTS status options for bio/profile",
+      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
+    },
+    {
+      "title": "Dynasty Umbrella consolidation plan",
+      "repo": "gm-command",
+      "status": "awaiting go-ahead on semantic audit scope for third round",
+      "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
     },
     {
       "title": "Documentary Acquisitions Ledger handoff",
