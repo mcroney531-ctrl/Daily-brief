@@ -1,35 +1,23 @@
 {
-  "generatedAt": "2026-09-22T11:09:55Z",
+  "generatedAt": "2026-09-23T10:12:27Z",
   "items": [
     {
       "title": "New session",
       "repo": "ELC567-Bot",
-      "status": "chat app summary drafted for job posting alignment",
+      "status": "comprehensive handoff doc written; 12-section walkthrough + gotchas",
       "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
+    },
+    {
+      "title": "Dynasty Umbrella consolidation plan",
+      "repo": "gm-command",
+      "status": "refactor complete & smoke green; awaiting GPT writeup loop-in",
+      "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
     },
     {
       "title": "Self-hosted Audible PWA",
       "repo": "Audio-shelf",
       "status": "drafted TTS status options for bio/profile",
       "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
-    },
-    {
-      "title": "Dynasty Umbrella consolidation plan",
-      "repo": "gm-command",
-      "status": "awaiting go-ahead on semantic audit scope for third round",
-      "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
-    },
-    {
-      "title": "Documentary Acquisitions Ledger handoff",
-      "repo": "waka",
-      "status": "chat composer: Enter now newlines, Cmd/Ctrl+Enter sends; auto-grow 42→160px",
-      "url": "https://claude.ai/code/session_016caW9AQU2ez57B38DbtGxH"
-    },
-    {
-      "title": "Food Planning",
-      "repo": "Food-planning",
-      "status": "message composer: Enter now inserts newlines; Cmd+Enter sends",
-      "url": "https://claude.ai/code/session_01USGhe1KHb4duQAenCnCng7"
     }
   ]
 }
