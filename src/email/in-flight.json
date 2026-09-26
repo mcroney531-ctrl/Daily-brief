@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-09-25T11:16:45Z",
+  "generatedAt": "2026-09-26T10:09:35Z",
   "items": [
     {
       "title": "New session",
       "repo": "ELC567-Bot",
-      "status": "comprehensive handoff doc written; 12-section walkthrough + gotchas",
+      "status": "flagging two open decisions: persistence migration + Branch A decoupling cost before proceeding",
       "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
+    },
+    {
+      "title": "Portfolio site infrastructure setup",
+      "repo": "Portfolio",
+      "status": "Anything else you'd like to adjust on the site, or are you ready to move on to the next real project for one of the other shelves (E-Learning, Gamification, or Videos)?",
+      "url": "https://claude.ai/code/session_01MBJpAtNJWGNs2kMb1vzJtB"
     },
     {
       "title": "Dynasty Umbrella consolidation plan",
       "repo": "gm-command",
       "status": "refactor complete & smoke green; awaiting GPT writeup loop-in",
       "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
-    },
-    {
-      "title": "Self-hosted Audible PWA",
-      "repo": "Audio-shelf",
-      "status": "drafted TTS status options for bio/profile",
-      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
     }
   ]
 }
