@@ -1,16 +1,22 @@
 {
-  "generatedAt": "2026-09-27T11:10:40Z",
+  "generatedAt": "2026-09-28T10:13:30Z",
   "items": [
     {
-      "title": "New session",
+      "title": "Dynasty Umbrella consolidation plan",
+      "repo": "gm-command",
+      "status": "ready to run canary tests; awaiting roster data",
+      "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
+    },
+    {
+      "title": "Brainstorm an AI Workflow (ELC567)",
       "repo": "ELC567-Bot",
-      "status": "all tests green (630/630), work committed 280c059 and pushed",
+      "status": "layout analysis complete; awaiting which change to apply",
       "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
     },
     {
       "title": "Portfolio site infrastructure setup",
       "repo": "Portfolio",
-      "status": "Anything else you'd like to adjust on the site, or are you ready to move on to the next real project for one of the other shelves (E-Learning, Gamification, or Videos)?",
+      "status": "confirmed brief belongs to ELC567-Bot; Portfolio untouched",
       "url": "https://claude.ai/code/session_01MBJpAtNJWGNs2kMb1vzJtB"
     }
   ]
