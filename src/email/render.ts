@@ -217,6 +217,64 @@ function choreNudgeBody(zone: string, tasks: string[], dailyMaintenance: string[
     <div style="margin-top:4px;">${choreTaskList(dailyMaintenance)}</div>`;
 }
 
+const URL_PATTERN = /(https?:\/\/[^\s<]+[^\s<.,;:!?)])/g;
+
+// Plain-text capture, so the only markup this needs to add back is turning
+// bare URLs into clickable links and line breaks into <br> — no other
+// formatting is inferred.
+function linkifyAndBreak(text: string): string {
+  return escapeHtml(text)
+    .split("\n")
+    .map((line) => line.replace(URL_PATTERN, (url) => `<a href="${url}" style="color:#090f1f; text-decoration:underline;">${url}</a>`))
+    .join("<br>");
+}
+
+// A stripped-down alternate send: same header/branding as the normal brief,
+// but the body is just the plain-text capture from the "This Week" artifact
+// experiment — no menu, chores, pool, or quicksum sections. Swapped in via
+// getThisWeekSnapshot().active rather than replacing the normal template.
+export function renderThisWeekOnlyHtml(date: Date, text: string): string {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>This Week</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alata&display=swap">
+</head>
+<body style="margin:0; padding:0; background:#d3d9de; font-family:'Alata',Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background:#d3d9de;">
+    <tr>
+      <td align="center" style="padding:24px 12px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; max-width:480px; width:100%;">
+
+          <tr>
+            <td style="background:#090f1f; border-radius:16px; padding:24px 22px;">
+              <div style="font-family:'DM Mono',SFMono-Regular,Consolas,monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#cccccc;">This Week</div>
+              <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:20px; font-weight:700; color:#ffffff; margin-top:6px;">${escapeHtml(formatDate(date))}</div>
+            </td>
+          </tr>
+
+          <tr><td style="height:16px; line-height:16px; font-size:0;">&nbsp;</td></tr>
+
+          <tr>
+            <td style="background:#ffffff; border:1px solid #e2e2e2; border-radius:16px; padding:22px;">
+              <div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:15px; color:#090f1f; line-height:1.6; white-space:normal;">${linkifyAndBreak(text)}</div>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+export function renderThisWeekOnlyText(date: Date, text: string): string {
+  return `This Week — ${formatDate(date)}\n\n${text}`;
+}
+
 export interface RenderOptions {
   // "cid:linkhoard-icon" by default, matching the attachment send.ts wires
   // up — overridable so the local preview script (which never goes through
