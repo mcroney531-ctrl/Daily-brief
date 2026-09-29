@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-28T11:23:40Z",
+  "generatedAt": "2026-09-29T10:13:10Z",
   "items": [
+    {
+      "title": "Brainstorm an AI Workflow (ELC567)",
+      "repo": "ELC567-Bot",
+      "status": "pin-to-bottom behavior locked; 6 mutation tests pass, control repositioned",
+      "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
+    },
     {
       "title": "Dynasty Umbrella consolidation plan",
       "repo": "gm-command",
       "status": "ready to run canary tests; awaiting roster data",
       "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
-    },
-    {
-      "title": "Brainstorm an AI Workflow (ELC567)",
-      "repo": "ELC567-Bot",
-      "status": "layout analysis complete; awaiting which change to apply",
-      "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
     },
     {
       "title": "Portfolio site infrastructure setup",
