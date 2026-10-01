@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-09-30T11:10:00Z",
+  "generatedAt": "2026-10-01T10:12:00Z",
   "items": [
+    {
+      "title": "Brainstorm an AI Workflow (ELC567)",
+      "repo": "ELC567-Bot",
+      "status": "hygiene pass complete; QA on deployed build next",
+      "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
+    },
     {
       "title": "Documentary Acquisitions Ledger handoff",
       "repo": "waka",
       "status": "Reading Center project confirmed (fdbkdsracxomwyytfgob, us-west-2)",
       "url": "https://claude.ai/code/session_016caW9AQU2ez57B38DbtGxH"
-    },
-    {
-      "title": "Brainstorm an AI Workflow (ELC567)",
-      "repo": "ELC567-Bot",
-      "status": "committed wording fix as 8a35aae; suite 143/143 green",
-      "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
     },
     {
       "title": "Dynasty Umbrella consolidation plan",
