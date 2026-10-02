@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-01T11:14:30Z",
+  "generatedAt": "2026-10-02T10:12:30Z",
   "items": [
     {
       "title": "Brainstorm an AI Workflow (ELC567)",
       "repo": "ELC567-Bot",
-      "status": "hygiene pass complete; QA on deployed build next",
+      "status": "8-step run protocol for QA setup; reports save to reports/RUN_P0x_report.md",
       "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
     },
     {
@@ -12,18 +12,6 @@
       "repo": "waka",
       "status": "Reading Center project confirmed (fdbkdsracxomwyytfgob, us-west-2)",
       "url": "https://claude.ai/code/session_016caW9AQU2ez57B38DbtGxH"
-    },
-    {
-      "title": "Dynasty Umbrella consolidation plan",
-      "repo": "gm-command",
-      "status": "ready to run canary tests; awaiting roster data",
-      "url": "https://claude.ai/code/session_01ByEco91aEm5436Zgrorb5z"
-    },
-    {
-      "title": "Portfolio site infrastructure setup",
-      "repo": "Portfolio",
-      "status": "confirmed brief belongs to ELC567-Bot; Portfolio untouched",
-      "url": "https://claude.ai/code/session_01MBJpAtNJWGNs2kMb1vzJtB"
     }
   ]
 }
