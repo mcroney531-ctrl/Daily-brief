@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-02T11:14:20Z",
+  "generatedAt": "2026-10-03T10:10:00Z",
   "items": [
     {
       "title": "Brainstorm an AI Workflow (ELC567)",
       "repo": "ELC567-Bot",
-      "status": "8-step run protocol for QA setup; reports save to reports/RUN_P0x_report.md",
+      "status": "Step 2 harness complete: dual-provider adapter, security checks, test coverage",
       "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
     },
     {
