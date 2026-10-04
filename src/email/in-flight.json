@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-10-03T11:10:30Z",
+  "generatedAt": "2026-10-04T10:10:00Z",
   "items": [
+    {
+      "title": "Food Planning",
+      "repo": "Food-planning",
+      "status": "Let me know what you think once you've seen it live — happy to tune spacing, type size, or the composer shape further once you've had hands on it.",
+      "url": "https://claude.ai/code/session_01USGhe1KHb4duQAenCnCng7"
+    },
     {
       "title": "Brainstorm an AI Workflow (ELC567)",
       "repo": "ELC567-Bot",
-      "status": "Step 2 harness complete: dual-provider adapter, security checks, test coverage",
+      "status": "3 decisions needed: app regression test, systemic promotion rule, run order",
       "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
-    },
-    {
-      "title": "Documentary Acquisitions Ledger handoff",
-      "repo": "waka",
-      "status": "Reading Center project confirmed (fdbkdsracxomwyytfgob, us-west-2)",
-      "url": "https://claude.ai/code/session_016caW9AQU2ez57B38DbtGxH"
     }
   ]
 }
