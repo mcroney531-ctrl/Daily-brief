@@ -1,11 +1,17 @@
 {
-  "generatedAt": "2026-10-07T11:15:45Z",
+  "generatedAt": "2026-10-08T10:11:15Z",
   "items": [
     {
       "title": "Test Panel builder with sliders",
       "repo": "ELC569-Slider",
-      "status": "pushed fixes to main (10a6ac1); 18 endpoint tests pass",
+      "status": "delivered Claude in Chrome persona test prompt",
       "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
+    },
+    {
+      "title": "Claude mods in Claude code",
+      "repo": "Portfolio",
+      "status": "drafted cross-account prompt for top 5 Claude Code mods",
+      "url": "https://claude.ai/code/session_01SzVmunw2vxotFPScsJmjAN"
     },
     {
       "title": "BYOS bakeoff round 1",
