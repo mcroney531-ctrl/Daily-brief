@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-08T11:16:40Z",
+  "generatedAt": "2026-10-09T10:17:30Z",
   "items": [
     {
       "title": "Test Panel builder with sliders",
       "repo": "ELC569-Slider",
-      "status": "delivered Claude in Chrome persona test prompt",
+      "status": "landing page on branch; tab order needs NVDA pass",
       "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
     },
     {
@@ -24,12 +24,6 @@
       "repo": "ELC567-Bot",
       "status": "P02 run validated & ready; operator can start",
       "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
-    },
-    {
-      "title": "Food Planning",
-      "repo": "Food-planning",
-      "status": "suggestions now auto-refresh daily at 6 AM, when app opens",
-      "url": "https://claude.ai/code/session_01USGhe1KHb4duQAenCnCng7"
     }
   ]
 }
