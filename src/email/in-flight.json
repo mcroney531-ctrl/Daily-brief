@@ -1,11 +1,17 @@
 {
-  "generatedAt": "2026-10-09T11:20:30Z",
+  "generatedAt": "2026-10-10T10:09:30Z",
   "items": [
     {
       "title": "Test Panel builder with sliders",
       "repo": "ELC569-Slider",
-      "status": "landing page on branch; tab order needs NVDA pass",
+      "status": "page transitions added, pushed as 2ed3b37; tests pass",
       "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
+    },
+    {
+      "title": "Conversation export extension handoff",
+      "repo": "Transcript-exporter",
+      "status": "image-only user turns extract empty and get dropped silently",
+      "url": "https://claude.ai/code/session_01KqWkxQ5pEhWqXJEsXrJHhA"
     },
     {
       "title": "Claude mods in Claude code",
@@ -18,12 +24,6 @@
       "repo": "ELC569-Slider",
       "status": "12-call confirmation run complete; report & scores sent",
       "url": "https://claude.ai/code/session_01XE2UYtXY1TGd1EdVQAdyVB"
-    },
-    {
-      "title": "Brainstorm an AI Workflow (ELC567)",
-      "repo": "ELC567-Bot",
-      "status": "P02 run validated & ready; operator can start",
-      "url": "https://claude.ai/code/session_01R5XJCKcKekpsX4rUbK6fWk"
     }
   ]
 }
