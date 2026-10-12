@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-11T11:09:40Z",
+  "generatedAt": "2026-10-12T10:15:15Z",
   "items": [
     {
       "title": "Test Panel builder with sliders",
       "repo": "ELC569-Slider",
-      "status": "persona cards fixed, View route split out; pushed e2f3be9",
+      "status": "focus fix 92d4b57 ready; needs main push + Create-another call",
       "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
     },
     {
@@ -12,12 +12,6 @@
       "repo": "Transcript-exporter",
       "status": "image-only user turns extract empty and get dropped silently",
       "url": "https://claude.ai/code/session_01KqWkxQ5pEhWqXJEsXrJHhA"
-    },
-    {
-      "title": "Claude mods in Claude code",
-      "repo": "Portfolio",
-      "status": "drafted cross-account prompt for top 5 Claude Code mods",
-      "url": "https://claude.ai/code/session_01SzVmunw2vxotFPScsJmjAN"
     }
   ]
 }
