@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-12T11:22:20Z",
+  "generatedAt": "2026-10-13T10:10:30Z",
   "items": [
     {
       "title": "Test Panel builder with sliders",
       "repo": "ELC569-Slider",
-      "status": "focus fix 92d4b57 ready; needs main push + Create-another call",
+      "status": "copy polish merged to main at da78954; live check left to user",
       "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
     },
     {
