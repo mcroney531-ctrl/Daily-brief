@@ -1,17 +1,29 @@
 {
-  "generatedAt": "2026-10-13T11:17:30Z",
+  "generatedAt": "2026-10-14T10:11:40Z",
   "items": [
+    {
+      "title": "Self-hosted Audible PWA",
+      "repo": "Audio-shelf",
+      "status": "standalone MVP several weeks; try Tunarr/ErsatzTV first",
+      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
+    },
+    {
+      "title": "Perfect pour prototype: glass and pilsner",
+      "repo": "perfect-pour",
+      "status": "v2.2 refinements in: thumb-slide Watch, new copy, debrief",
+      "url": "https://claude.ai/code/session_015ZkLHiwjAQ1ocskLp6ToQ8"
+    },
+    {
+      "title": "Claude mods in Claude code",
+      "repo": "Portfolio",
+      "status": "Work shelf line reworded, pushed to main; meta description updated",
+      "url": "https://claude.ai/code/session_01SzVmunw2vxotFPScsJmjAN"
+    },
     {
       "title": "Test Panel builder with sliders",
       "repo": "ELC569-Slider",
       "status": "copy polish merged to main at da78954; live check left to user",
       "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
-    },
-    {
-      "title": "Conversation export extension handoff",
-      "repo": "Transcript-exporter",
-      "status": "image-only user turns extract empty and get dropped silently",
-      "url": "https://claude.ai/code/session_01KqWkxQ5pEhWqXJEsXrJHhA"
     }
   ]
 }
