@@ -1,17 +1,23 @@
 {
-  "generatedAt": "2026-10-14T11:10:20Z",
+  "generatedAt": "2026-10-15T10:12:15Z",
   "items": [
+    {
+      "title": "Perfect pour prototype: glass and pilsner",
+      "repo": "perfect-pour",
+      "status": "glass A exported as 8 PNG/SVG files from live game",
+      "url": "https://claude.ai/code/session_015ZkLHiwjAQ1ocskLp6ToQ8"
+    },
+    {
+      "title": "(Troubleshoot chat) Remote control",
+      "repo": "scoutcap",
+      "status": "Norton ruled out for RC; corrected #4 and #6 written",
+      "url": "https://claude.ai/code/session_011EDb58EJNqSGLAGQ5sbVb6"
+    },
     {
       "title": "Self-hosted Audible PWA",
       "repo": "Audio-shelf",
       "status": "standalone MVP several weeks; try Tunarr/ErsatzTV first",
       "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
-    },
-    {
-      "title": "Perfect pour prototype: glass and pilsner",
-      "repo": "perfect-pour",
-      "status": "v2.2 refinements in: thumb-slide Watch, new copy, debrief",
-      "url": "https://claude.ai/code/session_015ZkLHiwjAQ1ocskLp6ToQ8"
     },
     {
       "title": "Claude mods in Claude code",
