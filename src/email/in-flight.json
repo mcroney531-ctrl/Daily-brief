@@ -1,11 +1,17 @@
 {
-  "generatedAt": "2026-10-16T11:11:10Z",
+  "generatedAt": "2026-10-17T10:10:20Z",
   "items": [
     {
       "title": "Perfect pour prototype: glass and pilsner",
       "repo": "perfect-pour",
-      "status": "M2 on main (cbe881d); new work lives on design/ review pages",
+      "status": "I'll commit it and compare it against the brief in the harness.",
       "url": "https://claude.ai/code/session_015ZkLHiwjAQ1ocskLp6ToQ8"
+    },
+    {
+      "title": "QuickGit Cloudflare deployment",
+      "repo": "Gitget",
+      "status": "wrangler won't run on Android; awaiting your pick A or B",
+      "url": "https://claude.ai/code/session_012Mps5RnSV8gMW4bPrBcBzv"
     },
     {
       "title": "(Troubleshoot chat) Remote control",
@@ -24,12 +30,6 @@
       "repo": "Portfolio",
       "status": "Work shelf line reworded, pushed to main; meta description updated",
       "url": "https://claude.ai/code/session_01SzVmunw2vxotFPScsJmjAN"
-    },
-    {
-      "title": "Test Panel builder with sliders",
-      "repo": "ELC569-Slider",
-      "status": "copy polish merged to main at da78954; live check left to user",
-      "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
     }
   ]
 }
