@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-10-17T11:09:20Z",
+  "generatedAt": "2026-10-18T10:09:30Z",
   "items": [
     {
       "title": "Perfect pour prototype: glass and pilsner",
       "repo": "perfect-pour",
-      "status": "I'll commit it and compare it against the brief in the harness.",
+      "status": "M4 approval, intro copy, and M5 order need your confirm",
       "url": "https://claude.ai/code/session_015ZkLHiwjAQ1ocskLp6ToQ8"
     },
     {
       "title": "QuickGit Cloudflare deployment",
       "repo": "Gitget",
-      "status": "wrangler won't run on Android; awaiting your pick A or B",
+      "status": "cleanup done; stack deployed and secured; Sync untested",
       "url": "https://claude.ai/code/session_012Mps5RnSV8gMW4bPrBcBzv"
     },
     {
@@ -18,18 +18,6 @@
       "repo": "scoutcap",
       "status": "Norton ruled out for RC; corrected #4 and #6 written",
       "url": "https://claude.ai/code/session_011EDb58EJNqSGLAGQ5sbVb6"
-    },
-    {
-      "title": "Self-hosted Audible PWA",
-      "repo": "Audio-shelf",
-      "status": "standalone MVP several weeks; try Tunarr/ErsatzTV first",
-      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
-    },
-    {
-      "title": "Claude mods in Claude code",
-      "repo": "Portfolio",
-      "status": "Work shelf line reworded, pushed to main; meta description updated",
-      "url": "https://claude.ai/code/session_01SzVmunw2vxotFPScsJmjAN"
     }
   ]
 }
