@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-18T11:12:10Z",
+  "generatedAt": "2026-10-19T10:10:12Z",
   "items": [
     {
       "title": "Perfect pour prototype: glass and pilsner",
       "repo": "perfect-pour",
-      "status": "M4 approval, intro copy, and M5 order need your confirm",
+      "status": "M5 candidate pushed; waiting on revised art from GPT",
       "url": "https://claude.ai/code/session_015ZkLHiwjAQ1ocskLp6ToQ8"
     },
     {
@@ -12,12 +12,6 @@
       "repo": "Gitget",
       "status": "cleanup done; stack deployed and secured; Sync untested",
       "url": "https://claude.ai/code/session_012Mps5RnSV8gMW4bPrBcBzv"
-    },
-    {
-      "title": "(Troubleshoot chat) Remote control",
-      "repo": "scoutcap",
-      "status": "Norton ruled out for RC; corrected #4 and #6 written",
-      "url": "https://claude.ai/code/session_011EDb58EJNqSGLAGQ5sbVb6"
     }
   ]
 }
