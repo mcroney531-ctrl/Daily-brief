@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-25T11:11:12Z",
+  "generatedAt": "2026-10-26T10:12:44Z",
   "items": [
     {
       "title": "Perfect pour prototype: glass and pilsner",
       "repo": "perfect-pour",
-      "status": "settleTau 5→4 pushed to main; Nitro ready ~8s after set-down",
+      "status": "front-door migration done; live check needs your action",
       "url": "https://claude.ai/code/session_015ZkLHiwjAQ1ocskLp6ToQ8"
     }
   ]
