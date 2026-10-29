@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-10-28T11:28:00Z",
+  "generatedAt": "2026-10-29T10:12:30Z",
   "items": [
     {
       "title": "Nautilus-plan session recovery",
       "repo": "nautilus-plan",
-      "status": "stale src/ui.html read timed out; nothing needs rerun",
+      "status": "Jordyn portrait fix logged in HANDOFF.md, pushed 304467a",
       "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
     },
     {
       "title": "Self-hosted Audible PWA",
       "repo": "Audio-shelf",
-      "status": "wrote pilot-download runbook for 2-3 ASINs, staging via audible CLI",
+      "status": "AudioShelf: 25 books verified; phone app needs reinstall",
       "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
     },
     {
