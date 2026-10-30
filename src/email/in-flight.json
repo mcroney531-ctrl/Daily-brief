@@ -1,23 +1,17 @@
 {
-  "generatedAt": "2026-10-29T11:22:30Z",
+  "generatedAt": "2026-10-30T10:10:30Z",
   "items": [
+    {
+      "title": "Self-hosted Audible PWA",
+      "repo": "Audio-shelf",
+      "status": "AudioShelf migrated and running; paused until drive works",
+      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
+    },
     {
       "title": "Nautilus-plan session recovery",
       "repo": "nautilus-plan",
       "status": "Jordyn portrait fix logged in HANDOFF.md, pushed 304467a",
       "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
-    },
-    {
-      "title": "Self-hosted Audible PWA",
-      "repo": "Audio-shelf",
-      "status": "AudioShelf: 25 books verified; phone app needs reinstall",
-      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
-    },
-    {
-      "title": "Perfect pour prototype: glass and pilsner",
-      "repo": "perfect-pour",
-      "status": "front-door migration done; live check needs your action",
-      "url": "https://claude.ai/code/session_015ZkLHiwjAQ1ocskLp6ToQ8"
     }
   ]
 }
