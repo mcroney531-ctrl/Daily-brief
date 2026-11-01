@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-31T11:09:40Z",
+  "generatedAt": "2026-11-01T10:10:00Z",
   "items": [
     {
       "title": "Nautilus-plan session recovery",
       "repo": "nautilus-plan",
-      "status": "Subtle chosen as V2 texture; pushed d620b37",
+      "status": "V2 shell built; engine, flow, CSS, browser tests all green",
       "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
     },
     {
