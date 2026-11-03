@@ -1,17 +1,23 @@
 {
-  "generatedAt": "2026-11-02T11:10:30Z",
+  "generatedAt": "2026-11-03T10:11:00Z",
   "items": [
+    {
+      "title": "Interview project infrastructure",
+      "repo": "UOPFIN-BTB",
+      "status": "both repos checked; workspace ready for instructions",
+      "url": "https://claude.ai/code/session_0125dxZpiQwZ3ubcMWLvurJJ"
+    },
+    {
+      "title": "Job interview project",
+      "repo": "TN-UOP-FIN",
+      "status": "repo scaffolded and pushed; waiting on interview instructions",
+      "url": "https://claude.ai/code/session_0125dxZpPCHpax2nJYBsmYre"
+    },
     {
       "title": "Nautilus-plan session recovery",
       "repo": "nautilus-plan",
       "status": "V2 shell built; engine, flow, CSS, browser tests all green",
       "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
-    },
-    {
-      "title": "Self-hosted Audible PWA",
-      "repo": "Audio-shelf",
-      "status": "AudioShelf migrated and running; paused until drive works",
-      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
     }
   ]
 }
