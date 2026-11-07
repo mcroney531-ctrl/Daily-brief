@@ -1,17 +1,11 @@
 {
-  "generatedAt": "2026-11-06T11:12:30Z",
+  "generatedAt": "2026-11-07T10:10:00Z",
   "items": [
     {
       "title": "Interview project infrastructure",
       "repo": "UOPFIN-BTB",
-      "status": "logged item 73, pushed ae266d0; Lead case pick pending",
+      "status": "You've hit your 5-hour limit · resets 6am (UTC)",
       "url": "https://claude.ai/code/session_0125dxZpiQwZ3ubcMWLvurJJ"
-    },
-    {
-      "title": "Job interview project",
-      "repo": "TN-UOP-FIN",
-      "status": "repo scaffolded and pushed; waiting on interview instructions",
-      "url": "https://claude.ai/code/session_0125dxZpPCHpax2nJYBsmYre"
     }
   ]
 }
