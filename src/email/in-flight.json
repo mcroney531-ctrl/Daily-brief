@@ -1,6 +1,30 @@
 {
-  "generatedAt": "2026-11-09T11:15:00Z",
+  "generatedAt": "2026-11-10T10:10:00Z",
   "items": [
+    {
+      "title": "Nautilus-plan session recovery",
+      "repo": "nautilus-plan",
+      "status": "handover prompt ready; artwork region 01 pass pending GPT reply",
+      "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
+    },
+    {
+      "title": "Quicksum familiarization",
+      "repo": "quicksum-mcp",
+      "status": "AudioShelf repo mapped; need handoff choice and address",
+      "url": "https://claude.ai/code/session_0125dxZkQHuRy8tTzDf5UR4n"
+    },
+    {
+      "title": "Test Panel builder with sliders",
+      "repo": "ELC569-Slider",
+      "status": "tour X fix confirmed live; log pushed, test suites pending",
+      "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
+    },
+    {
+      "title": "Self-hosted Audible PWA",
+      "repo": "Audio-shelf",
+      "status": "parked plan saved to docs/PARKED.md, pushed as c79e50f",
+      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
+    },
     {
       "title": "Interview project infrastructure",
       "repo": "UOPFIN-BTB",
