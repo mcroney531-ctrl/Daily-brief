@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-11T11:09:00Z",
+  "generatedAt": "2026-11-12T10:10:00Z",
   "items": [
     {
       "title": "Nautilus-plan session recovery",
       "repo": "nautilus-plan",
-      "status": "handover prompt ready; artwork region 01 pass pending GPT reply",
+      "status": "Pass, or what needs to change?",
       "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
     },
     {
