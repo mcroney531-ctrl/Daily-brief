@@ -1,10 +1,16 @@
 {
-  "generatedAt": "2026-11-12T11:09:00Z",
+  "generatedAt": "2026-11-13T10:10:00Z",
   "items": [
+    {
+      "title": "Self-hosted Audible PWA",
+      "repo": "Audio-shelf",
+      "status": "file-audiobooks.ps1 written; untested, run -DryRun first",
+      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
+    },
     {
       "title": "Nautilus-plan session recovery",
       "repo": "nautilus-plan",
-      "status": "Pass, or what needs to change?",
+      "status": "R1/R2 fixed, marker contrast 0/96 failing; Pages link unverified",
       "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
     },
     {
@@ -18,18 +24,6 @@
       "repo": "ELC569-Slider",
       "status": "tour X fix confirmed live; log pushed, test suites pending",
       "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
-    },
-    {
-      "title": "Self-hosted Audible PWA",
-      "repo": "Audio-shelf",
-      "status": "parked plan saved to docs/PARKED.md, pushed as c79e50f",
-      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
-    },
-    {
-      "title": "Interview project infrastructure",
-      "repo": "UOPFIN-BTB",
-      "status": "Make the Call docs pushed; design pass and packaging remain",
-      "url": "https://claude.ai/code/session_0125dxZpiQwZ3ubcMWLvurJJ"
     }
   ]
 }
