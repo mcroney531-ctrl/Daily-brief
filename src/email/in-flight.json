@@ -1,6 +1,12 @@
 {
-  "generatedAt": "2026-11-13T11:09:00Z",
+  "generatedAt": "2026-11-14T10:10:00Z",
   "items": [
+    {
+      "title": "Conversation export extension handoff",
+      "repo": "Transcript-exporter",
+      "status": "inspecting chat DOM for 4 message-rendering issues",
+      "url": "https://claude.ai/code/session_01KqWkxQ5pEhWqXJEsXrJHhA"
+    },
     {
       "title": "Self-hosted Audible PWA",
       "repo": "Audio-shelf",
@@ -12,18 +18,6 @@
       "repo": "nautilus-plan",
       "status": "R1/R2 fixed, marker contrast 0/96 failing; Pages link unverified",
       "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
-    },
-    {
-      "title": "Quicksum familiarization",
-      "repo": "quicksum-mcp",
-      "status": "AudioShelf repo mapped; need handoff choice and address",
-      "url": "https://claude.ai/code/session_0125dxZkQHuRy8tTzDf5UR4n"
-    },
-    {
-      "title": "Test Panel builder with sliders",
-      "repo": "ELC569-Slider",
-      "status": "tour X fix confirmed live; log pushed, test suites pending",
-      "url": "https://claude.ai/code/session_01NCiYQzEv4131uSNHcfG2Um"
     }
   ]
 }
