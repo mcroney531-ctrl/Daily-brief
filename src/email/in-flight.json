@@ -1,6 +1,12 @@
 {
-  "generatedAt": "2026-11-14T11:09:00Z",
+  "generatedAt": "2026-11-15T10:10:00Z",
   "items": [
+    {
+      "title": "Nautilus-plan session recovery",
+      "repo": "nautilus-plan",
+      "status": "F1 Inspect hint pushed (08c809f); phone re-check pending",
+      "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
+    },
     {
       "title": "Conversation export extension handoff",
       "repo": "Transcript-exporter",
@@ -12,12 +18,6 @@
       "repo": "Audio-shelf",
       "status": "file-audiobooks.ps1 written; untested, run -DryRun first",
       "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
-    },
-    {
-      "title": "Nautilus-plan session recovery",
-      "repo": "nautilus-plan",
-      "status": "R1/R2 fixed, marker contrast 0/96 failing; Pages link unverified",
-      "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
     }
   ]
 }
