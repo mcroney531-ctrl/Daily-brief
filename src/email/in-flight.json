@@ -1,6 +1,12 @@
 {
-  "generatedAt": "2026-11-15T11:09:00Z",
+  "generatedAt": "2026-11-16T10:10:00Z",
   "items": [
+    {
+      "title": "Linkhoard feature addition",
+      "repo": "linkhoard",
+      "status": "added 4 architectural decisions with built-vs-planned status",
+      "url": "https://claude.ai/code/session_0125dxZnaiXJ1pKF65QZFkKj"
+    },
     {
       "title": "Nautilus-plan session recovery",
       "repo": "nautilus-plan",
