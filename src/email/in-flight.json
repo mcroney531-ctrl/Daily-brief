@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-16T11:10:00Z",
+  "generatedAt": "2026-11-17T10:10:00Z",
   "items": [
     {
       "title": "Linkhoard feature addition",
       "repo": "linkhoard",
-      "status": "added 4 architectural decisions with built-vs-planned status",
+      "status": "Pinterest title fix pushed to branch; awaiting merge OK",
       "url": "https://claude.ai/code/session_0125dxZnaiXJ1pKF65QZFkKj"
     },
     {
@@ -18,12 +18,6 @@
       "repo": "Transcript-exporter",
       "status": "inspecting chat DOM for 4 message-rendering issues",
       "url": "https://claude.ai/code/session_01KqWkxQ5pEhWqXJEsXrJHhA"
-    },
-    {
-      "title": "Self-hosted Audible PWA",
-      "repo": "Audio-shelf",
-      "status": "file-audiobooks.ps1 written; untested, run -DryRun first",
-      "url": "https://claude.ai/code/session_01UMBXkJ2YFQDmUenQJ8hMoU"
     }
   ]
 }
