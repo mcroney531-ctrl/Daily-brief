@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-17T11:10:00Z",
+  "generatedAt": "2026-11-18T10:10:00Z",
   "items": [
     {
       "title": "Linkhoard feature addition",
       "repo": "linkhoard",
-      "status": "Pinterest title fix pushed to branch; awaiting merge OK",
+      "status": "8s fetch timeout pushed to branch; awaiting merge decision",
       "url": "https://claude.ai/code/session_0125dxZnaiXJ1pKF65QZFkKj"
     },
     {
@@ -12,12 +12,6 @@
       "repo": "nautilus-plan",
       "status": "F1 Inspect hint pushed (08c809f); phone re-check pending",
       "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
-    },
-    {
-      "title": "Conversation export extension handoff",
-      "repo": "Transcript-exporter",
-      "status": "inspecting chat DOM for 4 message-rendering issues",
-      "url": "https://claude.ai/code/session_01KqWkxQ5pEhWqXJEsXrJHhA"
     }
   ]
 }
