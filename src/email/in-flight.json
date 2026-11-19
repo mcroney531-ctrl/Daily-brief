@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-11-18T11:10:00Z",
+  "generatedAt": "2026-11-19T10:10:00Z",
   "items": [
+    {
+      "title": "Food Planning",
+      "repo": "Food-planning",
+      "status": "Linkhoard lockdown not applied; approval prompt timed out",
+      "url": "https://claude.ai/code/session_01USGhe1KHb4duQAenCnCng7"
+    },
     {
       "title": "Linkhoard feature addition",
       "repo": "linkhoard",
       "status": "8s fetch timeout pushed to branch; awaiting merge decision",
       "url": "https://claude.ai/code/session_0125dxZnaiXJ1pKF65QZFkKj"
-    },
-    {
-      "title": "Nautilus-plan session recovery",
-      "repo": "nautilus-plan",
-      "status": "F1 Inspect hint pushed (08c809f); phone re-check pending",
-      "url": "https://claude.ai/code/session_0125dxZkfaRGukNMFXziFYs3"
     }
   ]
 }
