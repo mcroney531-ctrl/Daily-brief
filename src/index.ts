@@ -1,20 +1,9 @@
 import { config } from "./config.js";
-import { getInFlightSlice } from "./inFlight.js";
 import { getThisWeekSnapshot } from "./thisWeek.js";
-import { getRandomQuicksumPicks, closeQuicksumClient } from "./mcp/quicksum.js";
-import { getPoolSlice } from "./linkhoard.js";
-import { getMenuSlice } from "./food.js";
-import { renderBriefHtml, renderBriefText, renderThisWeekOnlyHtml, renderThisWeekOnlyText, type BriefData } from "./email/render.js";
+import { closeQuicksumClient } from "./mcp/quicksum.js";
+import { buildBrief } from "./brief.js";
+import { renderBriefHtml, renderBriefText, renderThisWeekOnlyHtml, renderThisWeekOnlyText } from "./email/render.js";
 import { sendBriefEmail } from "./email/send.js";
-
-async function buildBrief(date: Date): Promise<BriefData> {
-  const [quicksumPicks, pool, menu] = await Promise.all([
-    getRandomQuicksumPicks(config.content.quicksumPickCount),
-    getPoolSlice(),
-    getMenuSlice(date),
-  ]);
-  return { date, inFlight: getInFlightSlice(), quicksumPicks, pool, menu };
-}
 
 async function main() {
   const date = new Date();
