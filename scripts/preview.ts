@@ -27,7 +27,9 @@ const mockData: BriefData = {
       hook: "Small, consistent changes compound into identity-level transformation over time.",
     },
   ],
-  menu: {
+  // MENU_PREVIEW=unavailable renders the failure state instead.
+  menu: process.env.MENU_PREVIEW === "unavailable" ? { status: "unavailable", categories: [], coveredCount: 0 } : {
+    status: "ok",
     categories: [
       { category: "Dinners", items: ["Cajun shrimp pasta", "Sheet-pan chicken thighs + broccoli", "Beef and broccoli stir fry"] },
       { category: "Pre-Workout Meal", items: ["Overnight oats with peanut butter"] },

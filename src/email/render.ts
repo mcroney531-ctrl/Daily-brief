@@ -69,9 +69,15 @@ function quicksumCard(pick: QuicksumPick): string {
 
 // The week's menu, as decided in Your Dietitian chat. Leads the brief, so it
 // gets the full-width card treatment rather than a one-line callout.
+export const MENU_UNAVAILABLE_TEXT = "Menu unavailable today — couldn't reach Food planning.";
+export const MENU_EMPTY_TEXT = "Nothing planned yet this week.";
+
 function menuBody(menu: MenuSlice): string {
+  if (menu.status === "unavailable") {
+    return `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#b45309;">${escapeHtml(MENU_UNAVAILABLE_TEXT)}</div>`;
+  }
   if (menu.categories.length === 0) {
-    return `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">Nothing planned yet this week.</div>`;
+    return `<div style="font-family:'Alata',Helvetica,Arial,sans-serif; font-size:14px; color:#808080;">${escapeHtml(MENU_EMPTY_TEXT)}</div>`;
   }
 
   const groups = menu.categories
@@ -370,8 +376,10 @@ export function renderBriefText(data: BriefData): string {
   lines.push("");
 
   lines.push("This Week's Menu");
-  if (data.menu.categories.length === 0) {
-    lines.push("  Nothing planned yet this week.");
+  if (data.menu.status === "unavailable") {
+    lines.push(`  ${MENU_UNAVAILABLE_TEXT}`);
+  } else if (data.menu.categories.length === 0) {
+    lines.push(`  ${MENU_EMPTY_TEXT}`);
   } else {
     for (const group of data.menu.categories) {
       lines.push(`  ${group.category}:`);
