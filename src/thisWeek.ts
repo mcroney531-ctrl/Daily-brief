@@ -26,3 +26,16 @@ export function getThisWeekSnapshot(): ThisWeekSnapshot | null {
     return null;
   }
 }
+
+// The This Week override replaces the full brief on every send while it's
+// active. DAILY_BRIEF_FORCE_FULL=true (set only by the manual "Full brief
+// test send" workflow) skips it for that one run, so the real buildBrief
+// path can be exercised without switching the experiment off for the
+// scheduled emails.
+export function shouldSendThisWeekOnly(
+  snapshot: ThisWeekSnapshot | null,
+  env: NodeJS.ProcessEnv = process.env,
+): boolean {
+  if (!snapshot?.active) return false;
+  return env.DAILY_BRIEF_FORCE_FULL !== "true";
+}
