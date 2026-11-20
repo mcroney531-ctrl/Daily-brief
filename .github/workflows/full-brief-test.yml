@@ -1,0 +1,53 @@
+name: Full brief test send
+
+# Manual only. Sends one full Daily Briefing even while the experimental
+# This Week override is active, so the real buildBrief path (menu, Quicksum,
+# Linkhoard sections) can be verified in production without switching the
+# experiment off for scheduled emails.
+#
+# Deliberately a separate workflow from send.yml: send.yml's gate treats any
+# successful send.yml run since midnight ET as "already sent today", so a
+# test run there could suppress that day's real email. Runs of this workflow
+# are never counted. send.yml itself is unchanged.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: full-brief-test
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npx tsx src/index.ts
+        env:
+          DAILY_BRIEF_FORCE_FULL: "true"
+          EMAIL_SUBJECT_PREFIX: "Daily Briefing [full-brief test]"
+
+          # Same sources as send.yml.
+          QUICKSUM_MCP_URL: https://quicksum-mcp-production.up.railway.app/mcp
+          LINKHOARD_API_URL: https://web-production-1b9bf.up.railway.app
+          LINKHOARD_API_TOKEN: ${{ secrets.LINKHOARD_API_TOKEN }}
+          FOOD_SUPABASE_URL: https://fdbkdsracxomwyytfgob.supabase.co
+          FOOD_SUPABASE_KEY: sb_publishable_w5izyYtgIXD-pQvjlkn4jg_DtGJq_7j
+
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_SECURE: ${{ secrets.SMTP_SECURE }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          # EMAIL_TO left unset: config.ts falls back to the same address
+          # send.yml uses, without repeating it in another file.
