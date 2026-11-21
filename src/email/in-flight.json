@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-20T11:10:00Z",
+  "generatedAt": "2026-11-21T10:10:00Z",
   "items": [
     {
       "title": "Food Planning",
       "repo": "Food-planning",
-      "status": "Linkhoard lockdown not applied; Supabase approval timed out 3x",
+      "status": "owner-only RLS lockdown next; will test in rolled-back txn",
       "url": "https://claude.ai/code/session_01USGhe1KHb4duQAenCnCng7"
     },
     {
