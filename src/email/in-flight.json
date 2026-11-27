@@ -1,29 +1,11 @@
 {
-  "generatedAt": "2026-11-26T11:10:00Z",
+  "generatedAt": "2026-11-27T10:10:00Z",
   "items": [
     {
       "title": "Food Planning",
       "repo": "Food-planning",
       "status": "Waiting on permission: Supabase — Execute Sql",
       "url": "https://claude.ai/code/session_01USGhe1KHb4duQAenCnCng7"
-    },
-    {
-      "title": "Fix duplicate reading_progress rows",
-      "repo": "quicksum-mcp",
-      "status": "tests/ lockdown parked at 4a6f7c2; P.5 check pending rollout",
-      "url": "https://claude.ai/code/session_0125dxZkYFdvS1PiD2d6TE33"
-    },
-    {
-      "title": "QuickSum security findings",
-      "repo": "quicksum-mcp",
-      "status": "migration checklist ready; awaiting exposure decisions and approval",
-      "url": "https://claude.ai/code/session_0125dxZkQFBgfCmEKSsyHAdv"
-    },
-    {
-      "title": "Documentary Acquisitions Ledger handoff",
-      "repo": "waka",
-      "status": "Waka writeup done: arch_demo_* is benign sample data, no other arch_* users",
-      "url": "https://claude.ai/code/session_016caW9AQU2ez57B38DbtGxH"
     }
   ]
 }
