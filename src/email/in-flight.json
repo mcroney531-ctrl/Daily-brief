@@ -1,6 +1,18 @@
 {
-  "generatedAt": "2026-11-27T11:10:00Z",
+  "generatedAt": "2026-11-28T10:10:00Z",
   "items": [
+    {
+      "title": "Linkhoard feature addition",
+      "repo": "linkhoard",
+      "status": "Waiting on permission: claude-code-remote — Update Environment",
+      "url": "https://claude.ai/code/session_0125dxZnaiXJ1pKF65QZFkKj"
+    },
+    {
+      "title": "Close the unauthenticated MCP /sse endpoint",
+      "repo": "linkhoard",
+      "status": "/sse route removed on claude/sharp-hamilton-z9juft; tests 44/44",
+      "url": "https://claude.ai/code/session_0125dxZodGLnp7TbJVXs84bu"
+    },
     {
       "title": "Food Planning",
       "repo": "Food-planning",
